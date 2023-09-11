@@ -14,7 +14,8 @@ private:
     bool penalidad;
 
 public:
-    Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false);
+    int ordenJuego;
+    Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0);
 
     void pedirCoordenadas(int *pFila, int *pColumna);
     void ingresarTesoros(Tablero& tablero);

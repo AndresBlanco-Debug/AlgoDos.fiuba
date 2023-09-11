@@ -9,6 +9,7 @@ private:
     char **tablero;
     int filas;
     int columnas;
+    //vectores para almacenar coordenadas;
     vector<pair<int, int> >tesorosJugador1;
     vector<pair<int, int> >espiasJugador1;
     vector<pair<int, int> >tesorosJugador2;
@@ -23,7 +24,7 @@ public:
     }
     ~Tablero() {
         liberarMemoria();
-    }
+    }//--------------------------------------------------------------------------------------------------------------------
     void generarTablero() {
         char casillaCarac = '#';
         for (int fila = 0; fila < filas; fila++) {
@@ -54,9 +55,9 @@ public:
         else if(jugador == 2 && ingresosTurno >= 0 && ingresosTurno < tesorosJugador2.size()){
             tesorosJugador2.push_back(make_pair(fila,columna));
         }
-        tablero[fila][columna] = '$'; //SE ENCARGA DE ACTUALIZAR EL TABLERO
+        tablero[fila][columna] = '$';
     }//--------------------------------------------------------------------------------------------------------------------
-    void guardarIngresoEspia(int fila, int columna, int jugador, int ingresosTurno){ //SE ENCARGA DE ACTUALIZAR EL TABLERO
+    void guardarIngresoEspia(int fila, int columna, int jugador, int ingresosTurno){
         if(jugador == 1 && ingresosTurno >= 0 && ingresosTurno < espiasJugador1.size()){
             espiasJugador1.push_back(make_pair(fila,columna));
         }
@@ -66,8 +67,15 @@ public:
         tablero[fila][columna] = 'E';
     }//-------------------------------------------------------------------------------------------------------------------------
     bool ingresoRepetido(int fila, int columna, char caracter){
-        bool valido = true;
-        if(caracter);
+        bool valido = false;
+        //caracter = '$';
+        if(tablero[fila][columna] != caracter){
+            valido = true;
+        }
+        else if(tablero[fila][columna] == caracter){
+
+        }
+        
     }//-----------------------------------------------------------------------------------------------------------------------------
     bool casillaValida(int fila, int columna, char caracter, bool penalidad){
         if(!penalidad){
@@ -88,8 +96,7 @@ public:
             for(int columna = 0; columna < columnas; columna++){
                 char casilla = '#';              
                 if(jugador == 1){
-                    for(int elemento = 0; elemento < tesorosJugador1.size(); elemento++){
-                    }
+                    for(const auto& tesoro : tesorosJugador1){}
                 }
             }
         }
