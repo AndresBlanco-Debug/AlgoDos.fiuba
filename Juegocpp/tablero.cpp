@@ -31,8 +31,8 @@ public:
                 tablero[fila][columna] = casillaCarac;
             }
         }
-    }
-    //funcion para mostrar el tablero general
+    }//----------------------------------------------------------------------------------------------------------------------
+    //funcion para mostrar el tablero al principio del juego
     void imprimirTablero(const char* nombreArchivo) {
         ofstream file(nombreArchivo);
         if (!file) {
@@ -46,35 +46,29 @@ public:
             file << endl;
         }
         file.close();
-    }
-    void guardarIgresoTesoro(int fila, int columna, int jugador){
-        if(jugador == 1){
-            tesorosJugador1.push_back(make_pair(fila, columna));
+    }//------------------------------------------------------------------------------------------------------------------
+    void guardarIgresoTesoro(int fila, int columna, int jugador, int ingresosTurno){
+        if(jugador == 1 && ingresosTurno >= 0 && ingresosTurno < tesorosJugador1.size()){
+            tesorosJugador1.push_back(make_pair(fila,columna));
         }
-        else if(jugador == 2){
+        else if(jugador == 2 && ingresosTurno >= 0 && ingresosTurno < tesorosJugador2.size()){
             tesorosJugador2.push_back(make_pair(fila,columna));
         }
-        tablero[fila][columna] = '$';
-    }
-    void guardarIngresoEspia(int fila, int columna, int jugador){
-        if(jugador == 1){
-            espiasJugador1.push_back(make_pair(fila, columna));
+        tablero[fila][columna] = '$'; //SE ENCARGA DE ACTUALIZAR EL TABLERO
+    }//--------------------------------------------------------------------------------------------------------------------
+    void guardarIngresoEspia(int fila, int columna, int jugador, int ingresosTurno){ //SE ENCARGA DE ACTUALIZAR EL TABLERO
+        if(jugador == 1 && ingresosTurno >= 0 && ingresosTurno < espiasJugador1.size()){
+            espiasJugador1.push_back(make_pair(fila,columna));
         }
-        else if(jugador == 2){
+        else if(jugador == 2 && ingresosTurno >= 0 && ingresosTurno < espiasJugador2.size()){
             espiasJugador2.push_back(make_pair(fila,columna));
         }
         tablero[fila][columna] = 'E';
-    }
+    }//-------------------------------------------------------------------------------------------------------------------------
     bool ingresoRepetido(int fila, int columna, char caracter){
-        bool valido = false;
-        if(caracter == '$'){
-            if(tablero[fila][columna] == caracter){
-                cout << "Error! No se permiten 2 tesoros por casilla" << endl;
-                valido = true;
-            }
-        }
-        return valido;
-    }
+        bool valido = true;
+        if(caracter);
+    }//-----------------------------------------------------------------------------------------------------------------------------
     bool casillaValida(int fila, int columna, char caracter, bool penalidad){
         if(!penalidad){
             if(tablero[fila][columna] != '#'){
@@ -83,17 +77,26 @@ public:
             return false;
             }
         }
-    }
+    }//-----------------------------------------------------------------------------------------------------------------------------
     void mostrarTableroJugador(int jugador, const char* nombreArchivo){
         ofstream file(nombreArchivo);
         if(!file){
             cerr << "Error al generar el archivo! contacte con el programador inmediatamente";
             return;
         }
-        else{
-            
+        for(int fila = 0; fila < filas; fila++){
+            for(int columna = 0; columna < columnas; columna++){
+                char casilla = '#';              
+                if(jugador == 1){
+                    for(int elemento = 0; elemento < tesorosJugador1.size(); elemento++){
+                    }
+                }
+            }
         }
     }
+    //-------------------------------------------------------------------------------------------------------------------------------
+    
+    //-------------------------------------------------------------------------------------------------------------------------------
     void liberarMemoria() {
         for (int i = 0; i < filas; i++) {
             delete[] tablero[i];
