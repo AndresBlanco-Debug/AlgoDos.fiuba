@@ -18,22 +18,19 @@ public:
         : userName(usuario), tesorosDisponibles(tesorosIniciales), cantidadEspias(espiasIniciales), penalidadFlag(castigo), ordenJuego(0) {}
 
     void pedirCoordenadas(int &fila, int &columna) {
-        std::cout << "Ingrese la fila deseada: " << std::endl;
-        std::cin >> fila;
-        std::cout << "Ingrese la columna deseada: " << std::endl;
-        std::cin >> columna;
+        cout << "Ingrese la fila deseada: " << endl;
+        cin >> fila;
+        cout << "Ingrese la columna deseada: " << endl;
+        cin >> columna;
     }
-    void ingresarTesoros(Tablero &tablero, int &ingresosTotales) {
-        ingresosTotales = 0;
+    //---------------------------------------------------------------------------------------------------------------------------------------
+    void ingresarTesoros(Tablero &tablero, int ingresosTotales, int ordenJugador) {
+        ingresosTotales = 0; 
         char tesoro = '$';
-        for (int i = 0; i < tesorosDisponibles; i++) {
+        for(int i = 0; i < tesorosDisponibles; i++){
             int fila, columna;
-            pedirCoordenadas(fila, columna);
-            while (tablero.ingresoRepetido(fila, columna, tesoro)) {
-                std::cout << "Ingreso repetido. Por favor, ingrese coordenadas válidas." << std::endl;
-                pedirCoordenadas(fila, columna);
-            }
-            tablero.actualizarCasilla(fila, columna, tesoro);
+            pedirCoordenadas(fila,columna);
+            tablero.guardarIgresoTesoro(fila, columna, ordenJuego, ingresosTotales);
             ingresosTotales++;
         }
     }
@@ -42,9 +39,5 @@ public:
         std::cout << "Ingrese $ para tesoro o E para espía: " << std::endl;
         std::cin >> ingreso;
         return ingreso;
-    }
-
-    bool tienePenalidad() const {
-        return penalidadFlag;
     }
 };

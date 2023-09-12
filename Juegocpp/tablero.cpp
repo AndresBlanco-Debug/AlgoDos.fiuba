@@ -48,44 +48,80 @@ public:
         }
         file.close();
     }//------------------------------------------------------------------------------------------------------------------
-    void guardarIgresoTesoro(int fila, int columna, int jugador, int ingresosTurno){
-        if(jugador == 1 && ingresosTurno >= 0 && ingresosTurno < tesorosJugador1.size()){
+    void guardarIgresoTesoro(int fila, int columna, int jugador){
+        if(jugador == 1 && tesorosJugador1.size() < 5){
             tesorosJugador1.push_back(make_pair(fila,columna));
         }
-        else if(jugador == 2 && ingresosTurno >= 0 && ingresosTurno < tesorosJugador2.size()){
+        else if(jugador == 2 && tesorosJugador2.size() < 5){
             tesorosJugador2.push_back(make_pair(fila,columna));
         }
         tablero[fila][columna] = '$';
     }//--------------------------------------------------------------------------------------------------------------------
-    void guardarIngresoEspia(int fila, int columna, int jugador, int ingresosTurno){
-        if(jugador == 1 && ingresosTurno >= 0 && ingresosTurno < espiasJugador1.size()){
+    void guardarIngresoEspia(int fila, int columna, int jugador){
+        if(jugador == 1){
             espiasJugador1.push_back(make_pair(fila,columna));
         }
-        else if(jugador == 2 && ingresosTurno >= 0 && ingresosTurno < espiasJugador2.size()){
+        else if(jugador == 2){
             espiasJugador2.push_back(make_pair(fila,columna));
         }
         tablero[fila][columna] = 'E';
     }//-------------------------------------------------------------------------------------------------------------------------
-    bool ingresoRepetido(int fila, int columna, char caracter){
+    bool tesoroRepetido(int fila, int columna, char caracter){
         bool valido = false;
-        //caracter = '$';
-        if(tablero[fila][columna] != caracter){
-            valido = true;
+        if(tablero[fila][columna] == '$'){
+            valido =  true;
         }
-        else if(tablero[fila][columna] == caracter){
-
-        }
-        
+        return valido;
     }//-----------------------------------------------------------------------------------------------------------------------------
-    bool casillaValida(int fila, int columna, char caracter, bool penalidad){
-        if(!penalidad){
-            if(tablero[fila][columna] != '#'){
-                return true;
-        }else{
-            return false;
+    //INTERACCION EN EL TABLERO POR EL JUGADOR
+    void moverTesoroPrimerJugador(int fila, int columna, int nuevaFila, int nuevaColumna){ //La fila y columna ya se tienen porque se pidieron.
+        char tesoro = '$';
+        for(int i = 0; i < tesorosJugador1.size(); i++){
+            int filaAlmacenada = tesorosJugador1[i].first;
+            int columnaAlmacenada = tesorosJugador1[i].second;
+            if(fila == filaAlmacenada && columna == columnaAlmacenada){
+                guardarIgresoTesoro(nuevaFila,nuevaColumna,1);
+                tablero[fila][columna] = '#';
+                break;
+            }
+        }
+    }//-------------------------------------------------------------------------------------------------------------------------------
+    void moverTesoroSegundoJugador(int fila, int columna, int nuevaFila, int nuevaColumna){ //La fila y columna ya se tienen porque se pidieron.
+        char tesoro = '$';
+        for(int i = 0; i < tesorosJugador2.size(); i++){
+            int filaAlmacenada = tesorosJugador2[i].first;
+            int columnaAlmacenada = tesorosJugador2[i].second;
+            if(fila == filaAlmacenada && columna == columnaAlmacenada){
+                guardarIgresoTesoro(nuevaFila,nuevaColumna,2);
+                tablero[fila][columna] = '#';
+                break;
             }
         }
     }//-----------------------------------------------------------------------------------------------------------------------------
+    void recuperarTesoroPrimerJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+        int longitud = tesorosJugador1.size();
+        for(int i = 0; i < longitud; i++){
+            int vectorFila = tesorosJugador1[i].first;
+            int vectorColumna = tesorosJugador1[i].second;
+            if(fila == vectorFila && columna == vectorColumna){
+                tablero[fila][columna] = '#';
+                tesorosJugador1.erase(espiasJugador1.begin() + i);
+                break;
+            }
+        }        
+    }//-----------------------------------------------------------------------------------------------------------------------------
+    void recuperarTesoroSegundoJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+        int longitud = tesorosJugador2.size();
+        for(int i = 0; i < longitud; i++){
+            int vectorFila = tesorosJugador2[i].first;
+            int vectorColumna = tesorosJugador2[i].second;
+            if(fila == vectorFila && columna == vectorColumna){
+                tablero[fila][columna] = '#';
+                tesorosJugador1.erase(espiasJugador2.begin() + i);
+                break;
+            }
+        }        
+    }//-------------------------------------------------------------------------------------------------------------------------------
     void mostrarTableroJugador(int jugador, const char* nombreArchivo){
         ofstream file(nombreArchivo);
         if(!file){

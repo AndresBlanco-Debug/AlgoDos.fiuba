@@ -16,8 +16,10 @@ public:
     void generarTablero();
     void imprimirTablero(const char* nombreArchivo);
     void liberarMemoria();
-    bool casillaValida(int fila, int columna, char caracter, bool penalidad);
-    bool ingresoRepetido(int fila, int columna, char caracter);
+    void guardarIgresoTesoro(int fila, int columna, int jugador, int ingresosTurno);
+    void guardarIngresoEspia(int fila, int columna, int jugador, int ingresosTurno);
+    bool casillaValida(bool penalidad);
+    bool tesoroRepetido(int fila, int columna, char caracter);
     void actualizarCasilla(int fila, int columna, char caracter);
 };
 
