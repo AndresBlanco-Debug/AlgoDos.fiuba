@@ -15,12 +15,15 @@ private:
 
 public:
     int ordenJuego;
-    Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0);
+    Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4);
+    
 
-    void pedirCoordenadas(int *pFila, int *pColumna);
+    void pedirCoordenadas(int &fila, int &columna);
     void ingresarTesoros(Tablero& tablero);
     char pedirIngreso();
     bool aplicarPenalidad(Tablero& tablero);
+    void reducirTesoros();
+    bool validarIngresoTesoro();
 };
 
 #endif

@@ -98,7 +98,8 @@ public:
             }
         }
     }//-----------------------------------------------------------------------------------------------------------------------------
-    void recuperarTesoroPrimerJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+    bool recuperarTesoroPrimerJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+        bool valido = false;
         int longitud = tesorosJugador1.size();
         for(int i = 0; i < longitud; i++){
             int vectorFila = tesorosJugador1[i].first;
@@ -106,11 +107,12 @@ public:
             if(fila == vectorFila && columna == vectorColumna){
                 tablero[fila][columna] = '#';
                 tesorosJugador1.erase(espiasJugador1.begin() + i);
-                break;
+                valido = true;
             }
-        }        
+        }return valido;        
     }//-----------------------------------------------------------------------------------------------------------------------------
-    void recuperarTesoroSegundoJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+    bool recuperarTesoroSegundoJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+        bool valido = false;
         int longitud = tesorosJugador2.size();
         for(int i = 0; i < longitud; i++){
             int vectorFila = tesorosJugador2[i].first;
@@ -118,9 +120,9 @@ public:
             if(fila == vectorFila && columna == vectorColumna){
                 tablero[fila][columna] = '#';
                 tesorosJugador1.erase(espiasJugador2.begin() + i);
-                break;
+                valido = true;
             }
-        }        
+        }return valido;        
     }//-------------------------------------------------------------------------------------------------------------------------------
     void mostrarTableroJugador(int jugador, const char* nombreArchivo){
         ofstream file(nombreArchivo);

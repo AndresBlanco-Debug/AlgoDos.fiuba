@@ -22,7 +22,11 @@ public:
     void imprimirCoordenadas(int fila, int columna){
         cout << "Se ha ingresaso un tesoro en las coordenadas: " << fila << ", " << columna << endl;
     }
-    bool casillaInactiva(int fila, int columna, int turno){
-        
+    bool casillaInactiva(int fila, int columna, bool rescate){
+        bool penalidad = false;
+        if(rescate){
+            penalidad = true;
+        }
+        return penalidad;
     }
 };
