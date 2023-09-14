@@ -29,4 +29,7 @@ public:
         }
         return penalidad;
     }
+    void eliminarEspia(int fila, int columna){
+        
+    }
 };

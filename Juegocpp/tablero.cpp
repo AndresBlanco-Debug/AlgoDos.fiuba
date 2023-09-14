@@ -124,6 +124,28 @@ public:
             }
         }return valido;        
     }//-------------------------------------------------------------------------------------------------------------------------------
+    bool compararCoordenadas(int fila, int columna, int caso){
+        bool tesoro = false;
+        if(caso == 1){ //jugador 1 revisando en jugador 2.
+            for(int parOrdenado = 0; parOrdenado < tesorosJugador2.size();parOrdenado++){
+                int filaGuardada = tesorosJugador2[parOrdenado].first;
+                int columnaGuardada = tesorosJugador2[parOrdenado].second;
+                if(fila == filaGuardada && columna == columnaGuardada){
+                    tesoro = true;
+                }                
+            }
+        }
+        else if(caso == 2){//jugador revisa el jugador 1
+            for(int parOrdenado = 0; parOrdenado < tesorosJugador1.size(); parOrdenado++){
+                int filaGuardada = tesorosJugador1[parOrdenado].first;
+                int columnaGuardada = tesorosJugador1[parOrdenado].second;
+                if(fila == filaGuardada && columna == columnaGuardada){
+                    tesoro = true;
+                }
+            }
+        }
+        return tesoro;
+    }//-------------------------------------------------------------------------------------------------------------------------------
     void mostrarTableroJugador(int jugador, const char* nombreArchivo){
         ofstream file(nombreArchivo);
         if(!file){

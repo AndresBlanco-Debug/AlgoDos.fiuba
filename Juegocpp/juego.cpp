@@ -60,15 +60,38 @@ public:
                 cout << "Error! Todos los tesoros se encuentran en juego" << endl;
             }
         }
+        //HAY QUE PENSAR EN LA FUCNION PARA RECUPERAR EL TESORO.
         else if(ingreso == 'E'){
             jugadorNumeroUno.pedirCoordenadas(fila,columna);
-            //hacer una funcion que compruebe que los valores ingresados solo estan en los pares ordenados del jugador 1
+            if(tableroJuego.compararCoordenadas(fila,columna,1)){
+                //se valida si hay un tesoro en la posicion que se ingreso en espia
+                cout << "Se ha encontrado un tesoro enemigo en la casilla!" << endl;
+                reglamento.imprimirCoordenadas(fila,columna);
+                tableroJuego.guardarIngresoEspia(fila,columna,1);
+                //se borra el tesoro y se reducen todos los tesoros en general
+            }
+            else{
+                tableroJuego.guardarIngresoEspia(fila, columna, 1);
+                //se pregunta si se quiere mover el tesoro
+                int respuesta = jugadorNumeroUno.moverTesoro();
+                if(respuesta == 1){
+                    int nuevafila, nuevacolumna;
+                    jugadorNumeroUno.pedirCoordenadas(nuevafila,nuevacolumna);
+                    while(tableroJuego.tesoroRepetido(nuevafila,nuevacolumna,'$')){
+                        reglamento.imprimirCoordenadas(nuevafila,nuevacolumna);
+                    }
+                    tableroJuego.moverTesoroPrimerJugador(fila,columna,nuevafila,nuevacolumna);
+                    //la funcion ya actualiza el tablero
+                }
+                else{
+                }
 
+            }
         }
     }
     
     int turno(int cantidadTurnos){
-        int primeraFila, primeraColumna, segundaFila, segundaColumna;
+        int primeraFila, primeraColumna, segunundaFila, segundaColumna;
         char ingresoJugadorUno = jugadorNumeroUno.pedirIngreso(); //E
         char ingresoJugadorDos = jugadorNumeroDos.pedirIngreso();
         if(ingresoJugadorUno == '$'){

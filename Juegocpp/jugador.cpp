@@ -11,13 +11,14 @@ private:
     int tesorosTotales;
     int tesorosRecuperados;
     int tesorosEnJuego;
+    int tesorosCapturados;
     int cantidadEspias;
     bool penalidadFlag;
 
 public:
     int ordenJuego;
-    Player(string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4)
-        : userName(usuario), tesorosTotales(tesorosIniciales),tesorosRecuperados(tesorosAlmacenados), cantidadEspias(espiasIniciales), penalidadFlag(castigo), ordenJuego(0), tesorosEnJuego(tesorosTablelro) {}
+    Player(string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0)
+        : userName(usuario), tesorosTotales(tesorosIniciales),tesorosRecuperados(tesorosAlmacenados), cantidadEspias(espiasIniciales), penalidadFlag(castigo), ordenJuego(0), tesorosEnJuego(tesorosTablelro), tesorosCapturados(tesorosNoJugables) {}
 
     void pedirCoordenadas(int &fila, int &columna) {
         cout << "Ingrese la fila deseada: " << endl;
@@ -49,11 +50,19 @@ public:
     void reducirTesoros(){
         if(tesorosTotales > 0){
             tesorosTotales--;
-            tesorosRecuperados++;
-            cout << "Has recuperado un tesoro. Tesoros totales restantes: " << tesorosTotales << endl;
-        } 
-        else {
-            cout << "Ya no quedan tesoros por recuperar." << endl;
+            tesorosEnJuego--;
         }
-}
+    }
+    void espiaInfiltrado(){
+        if(tesorosTotales > 0){
+            cantidadEspias++;
+            tesorosCapturados++;
+        }
+    }
+    int moverTesoro(){
+        int respuesta;
+        cout << "Desea mover un tesoro? Ingrese 1 para si / 0 para no: " << endl;
+        cin >> respuesta;
+        return respuesta;
+    }
 };

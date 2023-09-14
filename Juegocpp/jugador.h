@@ -15,7 +15,7 @@ private:
 
 public:
     int ordenJuego;
-    Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4);
+    Player(string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0);
     
 
     void pedirCoordenadas(int &fila, int &columna);
@@ -24,6 +24,8 @@ public:
     bool aplicarPenalidad(Tablero& tablero);
     void reducirTesoros();
     bool validarIngresoTesoro();
+    void espiaInfiltrado();
+    int moverTesoro();
 };
 
 #endif
