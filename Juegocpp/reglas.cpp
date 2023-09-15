@@ -22,17 +22,10 @@ public:
     void imprimirCoordenadas(int fila, int columna){
         cout << "Se ha ingresaso un tesoro en las coordenadas: " << fila << ", " << columna << endl;
     }
-    bool casillaInactiva(int fila, int columna, bool rescate){
-        bool penalidad = false;
-        if(rescate){
-            penalidad = true;
-        }
-        return penalidad;
-    }
-    void eliminarEspia(int fila, int columna, bool caso){
-        if(tableroJuego.compararEspias(fila,columna)){
+    bool casillaInactiva(){
+        if(tableroJuego.recuperarTesoroPrimerJugador()){
             return true;
         }
-        //hacer la validacion booleana
+        return false;
     }
 };

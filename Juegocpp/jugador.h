@@ -24,9 +24,12 @@ public:
     bool aplicarPenalidad(Tablero& tablero);
     void reducirTesoros();
     bool validarIngresoTesoro();
+    char val();
     void espiaInfiltrado();
     int moverTesoro();
     void espiaCaido();
+    int getEspias();
+
 };
 
 #endif

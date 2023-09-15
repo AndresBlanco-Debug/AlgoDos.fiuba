@@ -47,6 +47,18 @@ public:
             return false;
         }
     }
+    char val(){
+        int respuesta;
+        cout << "Si desea mover un tesoro ingrese 1 de lo contrario ingrese 0" << endl;
+        cin >> respuesta;
+        return respuesta;
+    }
+    bool moverTesoro(){
+        if(tesorosEnJuego < tesorosCapturados){
+            return true;
+        }
+        return false;
+    }
     void reducirTesoros(){
         if(tesorosTotales > 0){
             tesorosTotales--;
@@ -64,10 +76,7 @@ public:
             cantidadEspias--;
         }
     }
-    int moverTesoro(){
-        int respuesta;
-        cout << "Desea mover un tesoro? Ingrese 1 para si / 0 para no: " << endl;
-        cin >> respuesta;
-        return respuesta;
+    int getEspias(){
+        return cantidadEspias;
     }
 };

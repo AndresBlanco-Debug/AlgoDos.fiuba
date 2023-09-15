@@ -19,14 +19,20 @@ public:
    void guardarIgresoTesoro(int fila, int columna, int jugador);
     void guardarIngresoEspia(int fila, int columna, int jugador);
     bool casillaValida(bool penalidad);
-    bool tesoroRepetido(int fila, int columna, char caracter);
+    bool tesoroRepetido(int fila, int columna);
     void actualizarCasilla(int fila, int columna, char caracter);
     void moverTesoroPrimerJugador(int fila, int columna, int nuevaFila, int nuevaColumna);
     void moverTesoroSegundoJugador(int fila, int columna, int nuevaFila, int nuevaColumna);
-    bool recuperarTesoroPrimerJugador(int fila, int columna);
+    bool recuperarTesoroPrimerJugador();
     bool recuperarTesoroSegundoJugador(int fila, int columna);
-    bool compararTesoros(int fila, int columna, int caso);
+    bool compararTesoros();
     bool compararEspias(int fila, int columna, int caso);
+    void resetearCasilla(int fila, int columna);
+    bool espiaEnPrimerJugador();
+    bool espiaEnSegundoJugador();
+    bool eliminarEspias();
+    bool casillaInvalida(int fila, int columna);
+    bool espiaRepetido(int fila, int columna);
 };
 
 #endif
