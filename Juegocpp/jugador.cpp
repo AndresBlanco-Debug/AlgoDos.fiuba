@@ -28,15 +28,8 @@ public:
     }
     char pedirIngreso() {
         char ingreso;
-        if(tesorosRecuperados >=0 ){
-            cout << "Actualmente tiene todos los tesoros en el tablero." << '\n';
-            cout << "Seleccione donde quiere ingresar su espia." << endl;
-            ingreso = 'E';
-        }
-        else{
-            cout << "Ingrese $ para tesoro o E para espía: " << std::endl;
-            cin >> ingreso;
-        }
+        cout << "Para ingresar un tesoro elija '$', para ingresar un espia elija 'E'" << endl;
+        cin >> ingreso;
         return ingreso;
     }
     bool validarIngresoTesoro(){
