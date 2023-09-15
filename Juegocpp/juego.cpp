@@ -20,7 +20,6 @@ public:
         jugadorNumeroDos.ordenJuego = (ordenTurno == 1) ? 2: 1;
     }//----------------------------------------------------------------------------------------------------
     void ingresarTesorosPrimerJugador(){
-        int ingresoExitoso = 0;
         char tesoro = '$';
         for(int i = 0; i < 4; i++){
             int fila, columna;
@@ -29,21 +28,19 @@ public:
                 reglamento.imprimirCoordenadas(fila,columna);
                 jugadorNumeroUno.pedirCoordenadas(fila,columna);
             }
-            tableroJuego.guardarIgresoTesoro(fila,columna,1,ingresoExitoso);
-            ingresoExitoso++;
+            tableroJuego.guardarIgresoTesoro(fila,columna,1);  
         }
     }//---------------------------------------------------------------------------------------------------
-    void ingresarTesorosPrimerJugador(){
-        int ingresoExitoso = 0;
+    void ingresarTesorosSegundoJugador(){
         char tesoro = '$';
         for(int i = 0; i < 4; i++){
             int fila, columna;
-            jugadorNumeroDos.pedirCoordenadas(fila,columna);
+            jugadorNumeroUno.pedirCoordenadas(fila,columna);
             while(tableroJuego.tesoroRepetido(fila,columna,tesoro)){
-                //se ejecuta el codigo de castido
+                reglamento.imprimirCoordenadas(fila,columna);
+                jugadorNumeroUno.pedirCoordenadas(fila,columna);
             }
-            tableroJuego.guardarIgresoTesoro(fila,columna,2);
-            ingresoExitoso++;
+            tableroJuego.guardarIgresoTesoro(fila,columna,2);  
         }
     }//----------------------------------------------------------------------------------------------------
     void ingresoPrimerJugador(char ingreso){
@@ -52,6 +49,12 @@ public:
             if(jugadorNumeroUno.validarIngresoTesoro()){
                 jugadorNumeroUno.pedirCoordenadas(fila,columna);
                 while(tableroJuego.tesoroRepetido(fila,columna,ingreso)){
+                    if(tableroJuego.compararTesoros(fila,columna,1)){
+                        cout << "SE HA DETECTADO UN TESORO ENEMIGO!" << '\n';
+                        reglamento.imprimirCoordenadas(fila,columna);
+                        jugadorNumeroUno.pedirCoordenadas(fila,columna);
+                    }
+                    cout << "Error! tesoro ya almacenado" << '\n';
                     reglamento.imprimirCoordenadas(fila,columna);
                     jugadorNumeroUno.pedirCoordenadas(fila, columna);
                 }
@@ -60,31 +63,58 @@ public:
                 cout << "Error! Todos los tesoros se encuentran en juego" << endl;
             }
         }
+        //SIEMPRE HAY QUE VALIDAR QUE LOS TESOROS SEAN DEL JUGADOR CORRESPONDIENTE PERO SOLO PARA MOVER O RECUPERAR.
         //HAY QUE PENSAR EN LA FUCNION PARA RECUPERAR EL TESORO.
         else if(ingreso == 'E'){
             jugadorNumeroUno.pedirCoordenadas(fila,columna);
-            if(tableroJuego.compararCoordenadas(fila,columna,1)){
+            if(tableroJuego.compararTesoros(fila,columna,1)){
                 //se valida si hay un tesoro en la posicion que se ingreso en espia
                 cout << "Se ha encontrado un tesoro enemigo en la casilla!" << endl;
                 reglamento.imprimirCoordenadas(fila,columna);
                 tableroJuego.guardarIngresoEspia(fila,columna,1);
                 //se borra el tesoro y se reducen todos los tesoros en general
             }
+            //caso si se topa con espia del enemigo
+            //antes de hacer eso tiene que haber ingresado el dato.
+            else if(tableroJuego.compararEspias(fila,columna,1)){
+                //se ejecuta si el espia se encuentra con un espia enemigo, segun reglas deben eliminarse.
+                //se reducen los espias de ambos jugadores.
+                jugadorNumeroUno.espiaCaido();
+                jugadorNumeroDos.espiaCaido();
+                //se tiene que cambiar el tablero
+            }
+            //caso donde se mueve el tesoro
+            //hay que guardar el espia
             else{
-                tableroJuego.guardarIngresoEspia(fila, columna, 1);
-                //se pregunta si se quiere mover el tesoro
                 int respuesta = jugadorNumeroUno.moverTesoro();
                 if(respuesta == 1){
-                    int nuevafila, nuevacolumna;
-                    jugadorNumeroUno.pedirCoordenadas(nuevafila,nuevacolumna);
-                    while(tableroJuego.tesoroRepetido(nuevafila,nuevacolumna,'$')){
-                        reglamento.imprimirCoordenadas(nuevafila,nuevacolumna);
+                    int ejeX, ejeY;
+                    cout << "Ingrese las casillas del tesoro que desea mover" << endl;
+                    jugadorNumeroUno.pedirCoordenadas(ejeX,ejeY);
+                    //hay que validar que ahi haya un tesoro
+                    if(tableroJuego.tesoroRepetido(ejeX,ejeY,'$') && !(tableroJuego.compararTesoros(ejeX,ejeY,1))){
+                        //confirma que en la casilla que ingreso hay un tesoro y valida que es del jugador
+                        int auxFila, auxColumna;
+                        cout << "Indique donde quiere mover el tesoro" << endl;
+                        jugadorNumeroUno.pedirCoordenadas(auxFila,auxColumna);
+                        while(tableroJuego.tesoroRepetido(auxFila, auxColumna,'$')){
+                            reglamento.imprimirCoordenadas(auxFila, auxColumna);
+                            jugadorNumeroUno.pedirCoordenadas(auxFila,auxColumna);
+                        }
+                        tableroJuego.moverTesoroPrimerJugador(ejeX, ejeY, auxFila, auxColumna);
+                        tableroJuego.guardarIngresoEspia(fila, columna,1);
+                    }else{
+                        cout << "Error! esa es una casilla vacia" << '\n';
+                        jugadorNumeroUno.pedirCoordenadas(fila, columna);
+                        while(tableroJuego.)
                     }
-                    tableroJuego.moverTesoroPrimerJugador(fila,columna,nuevafila,nuevacolumna);
-                    //la funcion ya actualiza el tablero
+                    //hay que pedir otras coordenadas para que se pueda mover cualquier tesoro
+                }else{
+                    tableroJuego.guardarIngresoEspia(fila,columna,1);
+                    cout << "Se ha ingresado un espia correctamente" << endl;
+
                 }
-                else{
-                }
+            }
 
             }
         }

@@ -26,6 +26,7 @@ public:
     bool validarIngresoTesoro();
     void espiaInfiltrado();
     int moverTesoro();
+    void espiaCaido();
 };
 
 #endif

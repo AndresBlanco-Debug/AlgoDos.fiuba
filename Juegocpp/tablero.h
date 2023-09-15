@@ -25,7 +25,8 @@ public:
     void moverTesoroSegundoJugador(int fila, int columna, int nuevaFila, int nuevaColumna);
     bool recuperarTesoroPrimerJugador(int fila, int columna);
     bool recuperarTesoroSegundoJugador(int fila, int columna);
-    bool compararCoordenadas(int fila, int columna, int caso);
+    bool compararTesoros(int fila, int columna, int caso);
+    bool compararEspias(int fila, int columna, int caso);
 };
 
 #endif

@@ -59,6 +59,11 @@ public:
             tesorosCapturados++;
         }
     }
+    void espiaCaido(){
+        if(cantidadEspias > 0){
+            cantidadEspias--;
+        }
+    }
     int moverTesoro(){
         int respuesta;
         cout << "Desea mover un tesoro? Ingrese 1 para si / 0 para no: " << endl;

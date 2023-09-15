@@ -29,7 +29,10 @@ public:
         }
         return penalidad;
     }
-    void eliminarEspia(int fila, int columna){
-        
+    void eliminarEspia(int fila, int columna, bool caso){
+        if(tableroJuego.compararEspias(fila,columna)){
+            return true;
+        }
+        //hacer la validacion booleana
     }
 };

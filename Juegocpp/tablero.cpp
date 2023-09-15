@@ -99,14 +99,15 @@ public:
         }
     }//-----------------------------------------------------------------------------------------------------------------------------
     bool recuperarTesoroPrimerJugador(int fila, int columna){ //PASA POR UNA VALIDACION EXTERNA A LA FUNCION
+    //importante, para que se cumpla esta validacion se tiene que haber ingresado exitosamente antes al espia, de lo contrario es siempre falsa;
         bool valido = false;
         int longitud = tesorosJugador1.size();
         for(int i = 0; i < longitud; i++){
             int vectorFila = tesorosJugador1[i].first;
             int vectorColumna = tesorosJugador1[i].second;
             if(fila == vectorFila && columna == vectorColumna){
-                tablero[fila][columna] = '#';
                 tesorosJugador1.erase(espiasJugador1.begin() + i);
+                tablero[fila][columna] = '#';
                 valido = true;
             }
         }return valido;        
@@ -119,12 +120,12 @@ public:
             int vectorColumna = tesorosJugador2[i].second;
             if(fila == vectorFila && columna == vectorColumna){
                 tablero[fila][columna] = '#';
-                tesorosJugador1.erase(espiasJugador2.begin() + i);
+                tesorosJugador2.erase(espiasJugador2.begin() + i);
                 valido = true;
             }
         }return valido;        
     }//-------------------------------------------------------------------------------------------------------------------------------
-    bool compararCoordenadas(int fila, int columna, int caso){
+    bool compararTesoros(int fila, int columna, int caso){
         bool tesoro = false;
         if(caso == 1){ //jugador 1 revisando en jugador 2.
             for(int parOrdenado = 0; parOrdenado < tesorosJugador2.size();parOrdenado++){
@@ -135,7 +136,7 @@ public:
                 }                
             }
         }
-        else if(caso == 2){//jugador revisa el jugador 1
+        else if(caso == 2){//jugador 2 revisa el jugador 1
             for(int parOrdenado = 0; parOrdenado < tesorosJugador1.size(); parOrdenado++){
                 int filaGuardada = tesorosJugador1[parOrdenado].first;
                 int columnaGuardada = tesorosJugador1[parOrdenado].second;
@@ -146,6 +147,60 @@ public:
         }
         return tesoro;
     }//-------------------------------------------------------------------------------------------------------------------------------
+    bool compararEspias(int fila, int columna, int caso, int  &filaAuxiliar, int &columnaAuxiliar){ //esta fucnion puede eliminar los espias directamente.
+        bool tesoro = false;
+        if(caso == 1){ //jugador 1 revisando espias en jugador 2.
+            for(int parOrdenado = 0; parOrdenado < espiasJugador2.size();parOrdenado++){
+                int filaGuardada = espiasJugador2[parOrdenado].first;
+                int columnaGuardada = espiasJugador2[parOrdenado].second;
+                if(fila == filaGuardada && columna == columnaGuardada){
+                    tablero[fila][columna] = '#';
+                    tesoro = true;
+                }                
+            }
+        }
+        else if(caso == 2){//jugador 2 revisa espias en jugador 1.
+            for(int parOrdenado = 0; parOrdenado < espiasJugador1.size(); parOrdenado++){
+                int filaGuardada = espiasJugador1[parOrdenado].first;
+                int columnaGuardada = espiasJugador1[parOrdenado].second;
+                if(fila == filaGuardada && columna == columnaGuardada){
+                    tablero[fila][columna] = '#';
+                    tesoro = true;
+                }
+            }
+        }
+        return tesoro;
+    }//--------------------------------------------------------------------------------------------------------------------------------
+    void espiaEnSegundoJugador(){
+        //funcion elimina el tesoro del segundo jugador cuando el primero ingresa un espia
+        for(int i = 0; i < espiasJugador1.size(); i++){
+            for(int j = 0; j < tesorosJugador2.size(); j++){
+                if(espiasJugador1[i] == tesorosJugador2[j]){
+                    tesorosJugador2.erase(espiasJugador2.begin() + j);
+                }
+            }//hacer que los indices decescan despues de la iteracion
+        }
+    }//ha funcion de abajo elimina tesoros del primer jugador
+    void espiaEnPrimerJugador(){
+        for(int i = 0; i < espiasJugador2.size(); i++){
+            for(int j = 0; j < tesorosJugador1.size(); j++){
+                if(espiasJugador2[i] == tesorosJugador1[j]){
+                    tesorosJugador1.erase(tesorosJugador1.begin() + j);
+                }
+            }
+        }
+    }
+    //compara y elimina espias
+    void eliminarEspias(int fila, int columna, int caso){ //hay que eliminar los espias del tablero y tambien del vector que los almacena
+        for(int i = 0; i < espiasJugador1.size(); i++){
+            for(int j = 0; j < espiasJugador2.size(); j++){
+                if(espiasJugador1[i] == espiasJugador2[j]){
+                    espiasJugador1.erase(espiasJugador1.begin() + i);
+                    espiasJugador2.erase(espiasJugador1.begin() + j);  
+                }
+            }
+        }
+    }
     void mostrarTableroJugador(int jugador, const char* nombreArchivo){
         ofstream file(nombreArchivo);
         if(!file){
@@ -160,10 +215,7 @@ public:
                 }
             }
         }
-    }
-    //-------------------------------------------------------------------------------------------------------------------------------
-    
-    //-------------------------------------------------------------------------------------------------------------------------------
+    }//-------------------------------------------------------------------------------------------------------------------------------
     void liberarMemoria() {
         for (int i = 0; i < filas; i++) {
             delete[] tablero[i];
