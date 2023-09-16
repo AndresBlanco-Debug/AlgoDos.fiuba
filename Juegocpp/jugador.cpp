@@ -7,6 +7,7 @@ using namespace std;
 
 class Player {
 private:
+    Tablero tableroJuego;
     string userName;
     int tesorosTotales;
     int tesorosRecuperados;
@@ -18,7 +19,7 @@ private:
 public:
     int ordenJuego;
     Player(string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0)
-        : userName(usuario), tesorosTotales(tesorosIniciales),tesorosRecuperados(tesorosAlmacenados), cantidadEspias(espiasIniciales), penalidadFlag(castigo), ordenJuego(0), tesorosEnJuego(tesorosTablelro), tesorosCapturados(tesorosNoJugables) {}
+        : userName(usuario), tesorosTotales(tesorosIniciales), tesorosRecuperados(tesorosAlmacenados), cantidadEspias(espiasIniciales), penalidadFlag(castigo), ordenJuego(ordenJuego), tesorosEnJuego(tesorosTablelro), tesorosCapturados(tesorosNoJugables), tableroJuego(20,20) {}
 
     void pedirCoordenadas(int &fila, int &columna) {
         cout << "Ingrese la fila deseada: " << endl;
@@ -71,5 +72,23 @@ public:
     }
     int getEspias(){
         return cantidadEspias;
+    }
+    void tesoroCapturado(){
+        tesorosCapturados++;
+    }
+    void aumentarEspias(){
+        cantidadEspias++;
+    }
+    int getTesorosTotales(){
+        return tesorosTotales;
+    }
+    void mostrarTableroJugador(Tablero& tablero){
+        cout << "tablero actual" << endl;
+        for(int i = 0; i < 20; i++){
+            for(int j = 0; j < 20; j++){
+                char valor = tablero.obtenerValorCelda(i,j);
+            }
+            cout << endl;
+        }
     }
 };

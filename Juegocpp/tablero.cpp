@@ -15,9 +15,8 @@ private:
     vector<pair<int, int> >tesorosJugador2;
     vector<pair<int, int> >espiasJugador2;
     vector<pair<int,int> >casillasInactivas;
-
 public:
-    Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
+    Tablero(int filas, int columnas) : filas(20), columnas(20) {
         tablero = new char*[filas];
         for (int i = 0; i < filas; ++i) {
             tablero[i] = new char[columnas];
@@ -75,34 +74,6 @@ public:
         return valido;
     }//-----------------------------------------------------------------------------------------------------------------------------
     //INTERACCION EN EL TABLERO POR EL JUGADOR
-    /*void moverTesoroPrimerJugador(int fila, int columna, int nuevaFila, int nuevaColumna){ //La fila y columna ya se tienen porque se pidieron.
-        char tesoro = '$';
-        for(int i = 0; i < tesorosJugador1.size(); i++){
-            int filaAlmacenada = tesorosJugador1[i].first;
-            int columnaAlmacenada = tesorosJugador1[i].second;
-            if(fila == filaAlmacenada && columna == columnaAlmacenada){
-                //hay que validar que no haya un tesoro guardado
-                while(compararTesoros(nuevaFila,nuevaColumna,1)){
-                    cout << "por favor ingrese nuevas coordenadas" << endl;
-                }
-                guardarIgresoTesoro(nuevaFila,nuevaColumna,1);
-                tablero[fila][columna] = '#';
-                break;
-            }
-        }
-    }//-------------------------------------------------------------------------------------------------------------------------------
-    void moverTesoroSegundoJugador(int fila, int columna, int nuevaFila, int nuevaColumna){ //La fila y columna ya se tienen porque se pidieron.
-        char tesoro = '$';
-        for(int i = 0; i < tesorosJugador2.size(); i++){
-            int filaAlmacenada = tesorosJugador2[i].first;
-            int columnaAlmacenada = tesorosJugador2[i].second;
-            if(fila == filaAlmacenada && columna == columnaAlmacenada){
-                guardarIgresoTesoro(nuevaFila,nuevaColumna,2);
-                tablero[fila][columna] = '#';
-                break;
-            }
-        }
-    }//-----------------------------------------------------------------------------------------------------------------------------*/
     bool recuperarTesoroPrimerJugador(){
         //regresa true si hay un tesoro en la casilla donde se pone el espia
         bool valido = false;
@@ -169,7 +140,7 @@ public:
             for(int j = 0; j < espiasJugador2.size(); j++){
                 if(espiasJugador1[i] == espiasJugador2[j]){
                     espiasJugador1.erase(espiasJugador1.begin() + i);
-                    espiasJugador2.erase(espiasJugador1.begin() + j); 
+                    espiasJugador2.erase(espiasJugador2.begin() + j); 
                     return true; 
                 }
             }
@@ -216,6 +187,11 @@ public:
             }
         }
     }//-------------------------------------------------------------------------------------------------------------------------------
+    char obtenerValorCelda(int fila, int columna) const{
+        if (fila >= 0 && fila < filas && columna >= 0 && columna < columnas){
+        return tablero[fila][columna];
+        }
+    }
     void liberarMemoria() {
         for (int i = 0; i < filas; i++) {
             delete[] tablero[i];

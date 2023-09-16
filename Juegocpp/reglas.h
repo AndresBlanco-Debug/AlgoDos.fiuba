@@ -17,6 +17,8 @@ public:
     bool ingresoRepetido(char ingreso, int fila, int columna);
     void imprimirCoordenadas(int fila, int columna);
     bool casillaInactiva(int fila, int columna, bool rescate);
+    bool tesoroRecuperadoPrimerJugador();
+    bool tesoroRecuperadoSegundoJugador();
 };
 
 #endif

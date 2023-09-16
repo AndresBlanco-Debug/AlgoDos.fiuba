@@ -29,7 +29,10 @@ public:
     int moverTesoro();
     void espiaCaido();
     int getEspias();
-
+    void aumentarEspias();
+    void tesoroCapturado();
+    int getTesorosTotales();
+    void mostrarTableroJugador(Tablero& tablero);
 };
 
 #endif

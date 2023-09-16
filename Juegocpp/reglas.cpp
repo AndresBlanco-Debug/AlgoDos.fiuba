@@ -10,20 +10,23 @@ private:
     Player jugadorNumeroDos;
 public:
     Reglas(Tablero tablero, Player jugador1, Player jugador2):
-    tableroJuego(tablero),jugadorNumeroUno(jugador1),jugadorNumeroDos(jugador2){}//Se construye el objeto en si
-    //-----------------------------------------------------------------------------------
-    bool ingresoRepetido(char ingreso, int fila, int columna){
-        bool repetido = false;
-        if(tableroJuego.tesoroRepetido(fila, columna, ingreso)){
-            repetido = true;
-        }
-        return repetido;
-    }//------------------------------------------------------------------------------------
+    tableroJuego(tablero),jugadorNumeroUno(jugador1),jugadorNumeroDos(jugador2){}
     void imprimirCoordenadas(int fila, int columna){
         cout << "Se ha ingresaso un tesoro en las coordenadas: " << fila << ", " << columna << endl;
     }
-    bool casillaInactiva(){
+    bool tesoroRecuperadoPrimerJugador(){
+        //funcion para el primer jugador
+        //comprueba si hay un tesoro en el lugar ingresado y de ser asi lo recupera
+        //y da penalidad a la casilla
         if(tableroJuego.recuperarTesoroPrimerJugador()){
+            //la misma funcion guarda las coordenadas de las casillas inactivas
+            return true;
+        }
+        return false;
+    }
+    bool tesoroRecuperadoSegundoJugador(){
+        //funciona igual que la funcion de arriba pero con el jugador 2
+        if(tableroJuego.recuperarTesoroSegundoJugador()){
             return true;
         }
         return false;
