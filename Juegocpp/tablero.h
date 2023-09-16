@@ -2,37 +2,40 @@
 #define TABLERO_H
 
 #include <iostream>
-#include <fstream>
+#include <vector>
+#include "jugador.h"
 
 class Tablero {
 private:
     char **tablero;
     int filas;
     int columnas;
+    std::vector<std::pair<int, int> > tesorosJugador1;
+    std::vector<std::pair<int, int> > espiasJugador1;
+    std::vector<std::pair<int, int> > tesorosJugador2;
+    std::vector<std::pair<int, int> > espiasJugador2;
+    std::vector<std::pair<int, int> > casillasInactivas;
 
 public:
     Tablero(int filas, int columnas);
     ~Tablero();
     void generarTablero();
     void imprimirTablero(const char* nombreArchivo);
-    void liberarMemoria();
-   void guardarIgresoTesoro(int fila, int columna, int jugador);
+    void guardarIgresoTesoro(int fila, int columna, int jugador);
     void guardarIngresoEspia(int fila, int columna, int jugador);
     bool tesoroRepetido(int fila, int columna);
-    void actualizarCasilla(int fila, int columna, char caracter);
-    void moverTesoroPrimerJugador(int fila, int columna, int nuevaFila, int nuevaColumna);
-    void moverTesoroSegundoJugador(int fila, int columna, int nuevaFila, int nuevaColumna);
     bool recuperarTesoroPrimerJugador();
     bool recuperarTesoroSegundoJugador();
     bool compararTesoros();
-    bool compararEspias(int fila, int columna, int caso);
-    void resetearCasilla(int fila, int columna);
-    bool espiaEnPrimerJugador();
     bool espiaEnSegundoJugador();
+    bool espiaEnPrimerJugador();
     bool eliminarEspias();
+    void resetearCasilla(int fila, int columna);
     bool casillaInvalida(int fila, int columna);
     bool espiaRepetido(int fila, int columna);
-    char obtenerValorCelda(int fila, int columna);
+    void mostrarTableroJugador(int jugador, const char* nombreArchivo);
+    char obtenerValorCelda(int fila, int columna) const;
+    void liberarMemoria();
 };
 
 #endif

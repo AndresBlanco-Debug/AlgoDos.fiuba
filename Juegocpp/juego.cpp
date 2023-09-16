@@ -14,11 +14,7 @@ public:
     Juego(Tablero tableroInicial, Player jugador1, Player jugador2, Reglas interaciones):
     tableroJuego(tableroInicial),jugadorNumeroUno(jugador1),jugadorNumeroDos(jugador2),reglamento(interaciones){}
     //se inicia el juego
-    void asigarTurnos(){
-        int ordenTurno = (rand() % 2) + 1;
-        jugadorNumeroUno.ordenJuego = ordenTurno;
-        jugadorNumeroDos.ordenJuego = (ordenTurno == 1) ? 2: 1;
-    }//----------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------
     void ingresarTesorosPrimerJugadorINICIO(){
         char tesoro = '$';
         //se define el caracter de tesoro
@@ -265,5 +261,4 @@ public:
         cout << "¡El jugador 1 ha ganado!" << endl;
         }
     }
-
 };

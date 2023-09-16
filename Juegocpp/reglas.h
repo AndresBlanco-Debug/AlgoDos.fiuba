@@ -1,6 +1,7 @@
 #ifndef REGLAS_H
 #define REGLAS_H
 
+#include <iostream>
 #include "tablero.h"
 #include "jugador.h"
 
@@ -12,11 +13,7 @@ private:
 
 public:
     Reglas(Tablero tablero, Player jugador1, Player jugador2);
-
-    bool recuperarTesoro();
-    bool ingresoRepetido(char ingreso, int fila, int columna);
     void imprimirCoordenadas(int fila, int columna);
-    bool casillaInactiva(int fila, int columna, bool rescate);
     bool tesoroRecuperadoPrimerJugador();
     bool tesoroRecuperadoSegundoJugador();
 };

@@ -2,35 +2,35 @@
 #define PLAYER_H
 
 #include <iostream>
-#include <cstdlib>
 #include <string>
 #include "tablero.h"
 
 class Player {
 private:
+    Tablero tableroJuego;
     std::string userName;
-    int tesorosDisponibles;
+    int tesorosTotales;
+    int tesorosRecuperados;
+    int tesorosEnJuego;
+    int tesorosCapturados;
     int cantidadEspias;
-    bool penalidad;
+    bool penalidadFlag;
 
 public:
     int ordenJuego;
-    Player(string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0);
-    
 
+    Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0);
     void pedirCoordenadas(int &fila, int &columna);
-    void ingresarTesoros(Tablero& tablero);
     char pedirIngreso();
-    bool aplicarPenalidad(Tablero& tablero);
-    void reducirTesoros();
     bool validarIngresoTesoro();
     char val();
+    bool moverTesoro();
+    void reducirTesoros();
     void espiaInfiltrado();
-    int moverTesoro();
     void espiaCaido();
     int getEspias();
-    void aumentarEspias();
     void tesoroCapturado();
+    void aumentarEspias();
     int getTesorosTotales();
     void mostrarTableroJugador(Tablero& tablero);
 };

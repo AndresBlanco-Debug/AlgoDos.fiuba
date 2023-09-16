@@ -16,7 +16,7 @@ private:
     vector<pair<int, int> >espiasJugador2;
     vector<pair<int,int> >casillasInactivas;
 public:
-    Tablero(int filas, int columnas) : filas(20), columnas(20) {
+    Tablero() : filas(20), columnas(20) {
         tablero = new char*[filas];
         for (int i = 0; i < filas; ++i) {
             tablero[i] = new char[columnas];
@@ -171,21 +171,6 @@ public:
             }
         }
         return valido;
-    }
-    void mostrarTableroJugador(int jugador, const char* nombreArchivo){
-        ofstream file(nombreArchivo);
-        if(!file){
-            cerr << "Error al generar el archivo! contacte con el programador inmediatamente";
-            return;
-        }
-        for(int fila = 0; fila < filas; fila++){
-            for(int columna = 0; columna < columnas; columna++){
-                char casilla = '#';              
-                if(jugador == 1){
-                    for(const auto& tesoro : tesorosJugador1){}
-                }
-            }
-        }
     }//-------------------------------------------------------------------------------------------------------------------------------
     char obtenerValorCelda(int fila, int columna) const{
         if (fila >= 0 && fila < filas && columna >= 0 && columna < columnas){
