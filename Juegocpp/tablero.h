@@ -1,39 +1,31 @@
 #ifndef TABLERO_H
 #define TABLERO_H
-
 #include <vector>
-
-class Tablero {
+#include "juego.h"
+class Tablero
+{
 private:
-    char **tablero;
-    int filas;
-    int columnas;
-    // vectores para almacenar coordenadas;
-    std::vector<std::pair<int, int> > tesorosJugador1;
-    std::vector<std::pair<int, int> > espiasJugador1;
-    std::vector<std::pair<int, int> > tesorosJugador2;
-    std::vector<std::pair<int, int> > espiasJugador2;
-    std::vector<std::pair<int, int> > casillasInactivas;
-
+    char tablero[20][20]; //array estatico de 20x20
+    int fila;
+    int columna;
+    char casillaSola;
+    Player jugadorGenerico;
+    int cantidadTesoros;
+    int cantidadEspias;
+    bool casillaInactiva;
+    std::vector<std::pair<int,int> > tesorosPrimerJugador;
+    std::vector<std::pair<int,int> > tesorosSegundoJugador;
+    std::vector<std::pair<int,int> > espiasPrimerJugador;
+    std::vector<std::pair<int,int> >  espiasSegundoJugador;
+    std::vector<std::pair<int,int> > casillaInvalida;
 public:
-    Tablero();
-    ~Tablero();
-    void generarTablero();
-    void imprimirTablero(const char* nombreArchivo);
-    void guardarIngresoTesoro(int fila, int columna, int jugador);
-    void guardarIngresoEspia(int fila, int columna, int jugador);
-    bool tesoroRepetido(int fila, int columna);
-    bool recuperarTesoroPrimerJugador();
-    bool recuperarTesoroSegundoJugador();
+    //construir el tablero
+    int getLongJugador1();
+    int getLongJugador2();
     bool compararTesoros();
-    bool espiaEnSegundoJugador();
-    bool espiaEnPrimerJugador();
-    bool eliminarEspias();
-    void resetearCasilla(int fila, int columna);
-    bool casillaInvalida(int fila, int columna);
-    bool espiaRepetido(int fila, int columna);
-    char obtenerValorCelda(int fila, int columna) const;
-    void liberarMemoria();
+    void imprimirTablero();
+    
 };
+
 
 #endif
