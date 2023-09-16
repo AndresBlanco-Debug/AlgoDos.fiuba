@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include "vald_intr.h"
 #include "tablero.h"
 
 using namespace std;
@@ -17,9 +16,8 @@ private:
     bool penalidadFlag;
 
 public:
-    int ordenJuego;
     Player(string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0)
-        : userName(usuario), tesorosTotales(tesorosIniciales), tesorosRecuperados(tesorosAlmacenados), cantidadEspias(espiasIniciales), penalidadFlag(castigo), ordenJuego(ordenJuego), tesorosEnJuego(tesorosTablelro), tesorosCapturados(tesorosNoJugables), tableroJuego(20,20) {}
+        : userName(usuario), tesorosTotales(tesorosIniciales), tesorosRecuperados(tesorosAlmacenados), cantidadEspias(espiasIniciales), penalidadFlag(castigo), tesorosEnJuego(tesorosTablelro), tesorosCapturados(tesorosNoJugables), tableroJuego() {}
 
     void pedirCoordenadas(int &fila, int &columna) {
         cout << "Ingrese la fila deseada: " << endl;
@@ -82,7 +80,7 @@ public:
     int getTesorosTotales(){
         return tesorosTotales;
     }
-    void mostrarTableroJugador(Tablero& tablero){
+    void mostrarTableroJugador(const Tablero& tablero){
         cout << "tablero actual" << endl;
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 20; j++){

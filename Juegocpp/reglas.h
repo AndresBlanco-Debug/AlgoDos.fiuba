@@ -4,6 +4,8 @@
 #include <iostream>
 #include "tablero.h"
 #include "jugador.h"
+class Tablero;
+class Jugador;
 
 class Reglas {
 private:

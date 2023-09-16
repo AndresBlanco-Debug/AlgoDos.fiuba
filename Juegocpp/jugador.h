@@ -3,11 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include "tablero.h"
+
+class Tablero;
 
 class Player {
 private:
-    Tablero tableroJuego;
+    Tablero* tableroJuego;
     std::string userName;
     int tesorosTotales;
     int tesorosRecuperados;
@@ -17,8 +18,6 @@ private:
     bool penalidadFlag;
 
 public:
-    int ordenJuego;
-
     Player(std::string usuario = "jugador", int tesorosIniciales = 4, int espiasIniciales = 0, bool castigo = false, int ordenJuego = 0, int tesorosAlmacenados = 0, int tesorosTablelro = 4, int tesorosNoJugables = 0);
     void pedirCoordenadas(int &fila, int &columna);
     char pedirIngreso();
@@ -32,7 +31,7 @@ public:
     void tesoroCapturado();
     void aumentarEspias();
     int getTesorosTotales();
-    void mostrarTableroJugador(Tablero& tablero);
+    void mostrarTableroJugador() const;
 };
 
 #endif

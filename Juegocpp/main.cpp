@@ -7,8 +7,7 @@
 using namespace std;
 
 int main() {
-    // Crea instancias de las clases necesarias
-    Tablero tablero(20,20);
+    Tablero tablero;
     Player jugador1;
     Player jugador2;
     Reglas reglas(tablero, jugador1, jugador2);

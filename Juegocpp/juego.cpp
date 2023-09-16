@@ -26,7 +26,7 @@ public:
                 reglamento.imprimirCoordenadas(fila,columna);
                 jugadorNumeroUno.pedirCoordenadas(fila,columna);
             }
-            tableroJuego.guardarIgresoTesoro(fila,columna,1);  
+            tableroJuego.guardarIngresoTesoro(fila,columna,1);  
         }
     }
     //---------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ public:
                 reglamento.imprimirCoordenadas(fila,columna);
                 jugadorNumeroUno.pedirCoordenadas(fila,columna);
             }
-            tableroJuego.guardarIgresoTesoro(fila,columna,2);  
+            tableroJuego.guardarIngresoTesoro(fila,columna,2);  
         }
     }//----------------------------------------------------------------------------------------------------
     //hacer interacciones separadas segun el turno.
@@ -66,7 +66,7 @@ public:
                 cout << "Por favor ingrese otras coordenadas" << endl;
                 jugadorNumeroUno.pedirCoordenadas(fila,columna);
             }
-            tableroJuego.guardarIgresoTesoro(fila, columna, 1);
+            tableroJuego.guardarIngresoEspia(fila, columna, 1);
             //puede pasar que lo ingrese en un:
             //1. un espia enemigo
             //2. un teroso del enemigo
@@ -174,7 +174,7 @@ public:
                 cout << "Por favor ingrese otras coordenadas" << endl;
                 jugadorNumeroDos.pedirCoordenadas(fila,columna);
             }
-            tableroJuego.guardarIgresoTesoro(fila, columna, 2);
+            tableroJuego.guardarIngresoTesoro(fila, columna, 2);
             if(tableroJuego.espiaEnPrimerJugador()){
                 cout << "ERROR! UN ESPIA INFLILTRADO HA ROBADO SU TESORO" << '\n';
                 cout << "El tesoro ha sido capturado" << endl;
@@ -244,21 +244,21 @@ public:
             ingresoEspiaSegundoJugador();
         }
     }
-    void juego() {
-    ingresarTesorosPrimerJugadorINICIO();
-    ingresarTesorosSegundoJugadorINICIO();
-    int turnoActual = 0;
-    while (jugadorNumeroUno.getTesorosTotales() > 0 && jugadorNumeroDos.getTesorosTotales() > 0) {
-        turno();
-        jugadorNumeroUno.mostrarTableroJugador(tableroJuego);
-        jugadorNumeroDos.mostrarTableroJugador(tableroJuego);
-        turnoActual++;
-    }
-    // Determinar el ganador y anunciarlo
-    if (jugadorNumeroUno.getTesorosTotales() == 0) {
-        cout << "¡El jugador 2 ha ganado!" << endl;
-    } else {
-        cout << "¡El jugador 1 ha ganado!" << endl;
+    void juego(){
+        ingresarTesorosPrimerJugadorINICIO();
+        ingresarTesorosSegundoJugadorINICIO();
+        int turnoActual = 0;
+        while (jugadorNumeroUno.getTesorosTotales() > 0 && jugadorNumeroDos.getTesorosTotales() > 0) {
+            cout << "---------- Turno " << turnoActual + 1 << " ----------" << endl;
+            turno();
+            jugadorNumeroUno.mostrarTableroJugador();
+            jugadorNumeroDos.mostrarTableroJugador();
+            turnoActual++;
+        }
+        if (jugadorNumeroUno.getTesorosTotales() == 0) {
+            cout << "¡El jugador 2 ha ganado!" << endl;
+        } else {
+            cout << "¡El jugador 1 ha ganado!" << endl;
         }
     }
 };

@@ -4,6 +4,9 @@
 #include "tablero.h"
 #include "jugador.h"
 #include "reglas.h"
+class Tablero;
+class Jugador;
+class Reglas;
 
 class Juego
 {
