@@ -1,10 +1,15 @@
 #include <iostream>
 #include "tablero.h"
-using namespace std;
+#include "jugador.h"
+#include "juego.h"
+//using namespace std;
+
 
 int main(){
+    Juego juegoActual;
     Tablero tablero;
+    Player jugadorNumeroUno;
 
-    tablero.imprimirTablero();
+    juegoActual.primerIngreso();
     return 0;
 }

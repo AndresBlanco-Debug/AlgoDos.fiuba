@@ -1,7 +1,6 @@
 #ifndef TABLERO_H
 #define TABLERO_H
 #include <vector>
-#include "juego.h"
 class Tablero
 {
 private:
@@ -9,7 +8,7 @@ private:
     int fila;
     int columna;
     char casillaSola;
-    Player jugadorGenerico;
+    //Player jugadorGenerico;
     int cantidadTesoros;
     int cantidadEspias;
     bool casillaInactiva;
@@ -20,12 +19,27 @@ private:
     std::vector<std::pair<int,int> > casillaInvalida;
 public:
     //construir el tablero
+    Tablero();
     int getLongJugador1();
     int getLongJugador2();
-    bool compararTesoros();
+    int getLongEspiasP1();
+    int getLongEspiasP2();
+    int getLenInvalidCoord();
     void imprimirTablero();
-    
+    char getCasillaActual(int fila, int columna);
+    bool compararTesoros();
+    bool compararEspias();
+    bool guardarIngresoTesoroP1(int fila, int columna);
+    bool guardarIngresoTesoroP2(int fila, int columna);
+    bool espiaInfiltradoP1(int fila, int columna);
+    bool espiaInfiltradoP2(int fila, int columna);
+    bool espiaSobreTesosoP1();
+    bool espiaSobreTesosoP2();
+    bool moverTesoroP1(int fila, int columna);
+    bool moverTesoroP2(int fila, int columna);
+    bool casillaRestringida(int fila, int columna);
+    bool invalidarCasilla(int fila, int columna);
+    void actualizarTablero(int fila, int columna);
 };
-
 
 #endif

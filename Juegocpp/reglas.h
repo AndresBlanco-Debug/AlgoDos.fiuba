@@ -1,23 +1,16 @@
-#ifndef REGLAS_H
+/*#ifndef REGLAS_H
 #define REGLAS_H
-
-#include <iostream>
 #include "tablero.h"
-#include "jugador.h"
-class Tablero;
-class Jugador;
 
-class Reglas {
+class Reglas{
 private:
-    Tablero tableroJuego;
-    Player jugadorNumeroUno;
-    Player jugadorNumeroDos;
+    Tablero tablero;
 
 public:
-    Reglas(Tablero tablero, Player jugador1, Player jugador2);
+    Reglas();
+    bool ingresoValidoTesoroP1(int fila, int columna);
     void imprimirCoordenadas(int fila, int columna);
-    bool tesoroRecuperadoPrimerJugador();
-    bool tesoroRecuperadoSegundoJugador();
 };
 
-#endif
+
+#endif*/
