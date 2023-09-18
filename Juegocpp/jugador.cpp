@@ -26,9 +26,24 @@ void Player::reducirTesoros() {
 void Player::tesoroRecuperado() {
     tesorosTotales++;
 }
+bool Player::ingresoTesoro() {
+    if(tesorosTotales > tesorosEnJuego){
+        return true;
+    }
+    return false;
+}
 char Player::pedirIngreso() {
     char respuesta;
     cout << "Elija el ingreso: $ para tesoro, E para espia: " << endl;
     cin >> respuesta;
     return respuesta;
+}
+int Player::moverTesoro() {
+    int respuesta;
+    cout << "Ingrese 1 si desea mover el tesoro, otro numero si no dese hacer nada" << endl;
+    cin >> respuesta;
+    return respuesta;
+}
+int Player::getTesorosTotales() {
+    return tesorosTotales;
 }

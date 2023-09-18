@@ -8,7 +8,7 @@ Tablero::Tablero(){
     casillaSola = '#';
     cantidadTesoros = 0;
     cantidadEspias = 0;
-    casillaInactiva = false;
+    casillaInactiva = 5;
     for(int i = 0; i < fila; i++){
         for(int j = 0; j < columna; j++){
             tablero[i][j] = casillaSola;
@@ -29,6 +29,9 @@ int Tablero::getLongEspiasP2() {
 }
 int Tablero::getLenInvalidCoord() {
     return casillaInvalida.size();
+}
+void Tablero::reducirPenalidad() {
+    casillaInactiva--;
 }
 void Tablero::imprimirTablero(){
     for(int i = 0; i < fila; i++){
@@ -89,7 +92,7 @@ bool Tablero::guardarIngresoTesoroP1(int fila, int columna) {
     else{
         tesorosPrimerJugador.push_back(coordenadas);
         cout << "Tesoro ingresado exitosamente" << endl;
-        tablero[fila][columna] = '$';
+        imprimirTablero();
     }
     return ingresoVal;
 }
@@ -107,42 +110,70 @@ bool Tablero::guardarIngresoTesoroP2(int fila, int columna) {
     else{
         tesorosSegundoJugador.push_back(coordenadas);
         cout << "Tesoro ingresado exitosamente" << endl;
-        tablero[fila][columna] = '$'; //se actualiza el tablero
     }
     return ingresoVal;
 }
 bool Tablero::espiaInfiltradoP1(int fila, int columna) {
-    bool infiltracion = false;
-    //las interacciones del espia se trabajan por separado
-    if(getCasillaActual(fila,columna) == 'E' && !(compararEspias())){
-        //esto significa que se quiere poner un espia donde el jugador ya controla un espia
-        cout << "Error! el jugador ya posee un espia infiltado en la casilla" << '\n';
-        cout << "intente nuevamente" << endl;
+    bool infiltracion = true;
+    int len = getLongEspiasP1();
+    pair<int, int> coordenadas(fila,columna);
+    if(getCasillaActual(fila,columna) == 'E'){
+        for(int i = 0; i < len; i++){
+            if(coordenadas == espiasPrimerJugador[i]){
+                infiltracion = false;
+            }
+        }
     }
     else{
-        pair<int, int> coordenadas(fila,columna);
         espiasPrimerJugador.push_back(coordenadas);
         cout << "Espia infiltrado exitosamente" << endl;
-        infiltracion = true;
-
     }
     return infiltracion;
 }
 bool Tablero::espiaInfiltradoP2(int fila, int columna) {
-    bool infiltracion = false;
-    //las interacciones del espia se trabajan por separado
-    if(getCasillaActual(fila,columna) == 'E' && !(compararEspias())){
-        //esto significa que se quiere poner un espia donde el jugador ya controla un espia
-        cout << "Error! el jugador ya posee un espia infiltado en la casilla" << '\n';
-        cout << "intente nuevamente" << endl;
+    bool infiltracion = true;
+    int len = getLongEspiasP2();
+    pair<int, int> coordenadas(fila,columna);
+    if(getCasillaActual(fila,columna) == 'E'){
+        for(int i = 0; i < len; i++){
+            if(coordenadas == espiasSegundoJugador[i]){
+                infiltracion = false;
+            }
+        }
     }
     else{
-        pair<int, int> coordenadas(fila,columna);
         espiasSegundoJugador.push_back(coordenadas);
         cout << "Espia infiltrado exitosamente" << endl;
-        infiltracion = true;
     }
     return infiltracion;
+}
+bool Tablero::tesoroPerdidoP1() {
+    //funcion que elimina tesoros del primer jugador al encontrar un espia
+    int lenTesorosP1 = getLongJugador1();
+    int lenEspiasP2 = getLongEspiasP2();
+    for(int i = 0; i < lenTesorosP1; i++){
+        for(int j = 0; j < lenEspiasP2; j++){
+            if(tesorosPrimerJugador[i] == espiasSegundoJugador[j]){
+                tesorosPrimerJugador.erase(tesorosPrimerJugador.begin() + i);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+bool Tablero::tesoroPerdidoP2() {
+    //elimina tesoros del segundo jugador al encontrar un espia rival
+    int lenTesorosP2 = getLongJugador2();
+    int lenEspiasP1 = getLongEspiasP1();
+    for(int i = 0; i < lenTesorosP2; i++){
+        for(int j = 0; j < lenEspiasP1; j++){
+            if(tesorosSegundoJugador[i] == espiasPrimerJugador[j]){
+                tesorosSegundoJugador.erase(tesorosSegundoJugador.begin() + i);
+                return true;
+            }
+        }
+    }
+    return false;
 }
 bool Tablero::espiaSobreTesosoP1() {
     int lenTes = getLongJugador1();
@@ -154,6 +185,7 @@ bool Tablero::espiaSobreTesosoP1() {
                 extraccion = true;
             }
         }
+
     }
     return extraccion;
 }
@@ -194,35 +226,83 @@ bool Tablero::moverTesoroP2(int fila, int columna) {
     }
     return valido;
 }
-bool Tablero::casillaRestringida(int fila, int columna) {
-    bool penalidad = false;
-    if(moverTesoroP1(fila,columna) || moverTesoroP2(fila,columna)){
-        pair<int, int> coordenadas(fila,columna);
-        casillaInvalida.push_back(coordenadas);
-        penalidad = true;
+void Tablero::restringirCasilla(int fila, int columna) {
+    //funcion agrega la casilla restringida, nada mas.
+    int len = getLenInvalidCoord();
+    int cont = 0; //contador usado mas adelante
+    pair<int, int> coordenadas(fila,columna);
+    for(int i = 0; i < len; i++){
+        if(coordenadas != casillaInvalida[i]){
+            cont++;
+        }
     }
-    return penalidad;
+    if(cont == len){
+        casillaInvalida.push_back(coordenadas);
+    }
+}
+bool Tablero::tesoroRecuperadoP1() {
+    int lenTesoros = getLongJugador1();
+    int lenEspias = getLongEspiasP1();
+    for(int i = 0; i < lenTesoros; i++){
+        for(int j = 0; j < lenEspias; j++){
+            if(tesorosPrimerJugador[i] == espiasPrimerJugador[j]){
+                tesorosPrimerJugador.erase(tesorosPrimerJugador.begin() + i);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+bool Tablero::tesoroRecuperadoP2() {
+    int lenTesoros = getLongJugador2();
+    int lenEspias = getLongEspiasP2();
+    for(int i = 0; i < lenTesoros; i++){
+        for(int j = 0; j < lenEspias; j++){
+            if(tesorosSegundoJugador[i] == espiasSegundoJugador[j]){
+                tesorosSegundoJugador.erase(tesorosSegundoJugador.begin() + i);
+                return true;
+            }
+        }
+    }
+    return false;
 }
 bool Tablero::invalidarCasilla(int fila, int columna) {
     bool invalido = false;
     int len = getLenInvalidCoord();
     pair<int, int> coordenadas(fila,columna);
     for(int i = 0; i < len; i++){
-        if(coordenadas == casillaInvalida[i]){
+        if(coordenadas == casillaInvalida[i] && (casillaInactiva > 0)){
             invalido = true;
+
         }
     }
     return invalido;
 }
-
-void Tablero::actualizarTablero(int fila, int columna) {
-    //funcion pensada para el primer jugador
-    pair<int, int> tesoros(fila,columna);
-    for(int i = 0; i < fila; i++){
-        for(int j = 0; j < columna; j++){
-            if(tesoros == tesorosSegundoJugador[i]){
-                tablero[fila][columna] = '$';
-            }
-        }
+void Tablero::imprimirTableroP1() {
+    int lenTesP1 = getLongJugador1();
+    int lenEspP1 = getLongEspiasP1();
+    for(int i = 0; i < lenTesP1; i++){
+        int auxFil = tesorosPrimerJugador[i].first;
+        int auxCol = tesorosPrimerJugador[i].second;
+        tablero[auxFil][auxCol] = '$';
+    }
+    for(int j = 0; j < lenEspP1; j++){
+        int betaFil = espiasPrimerJugador[j].first;
+        int betaCol = espiasPrimerJugador[j].second;
+        tablero[betaFil][betaCol] = 'E';
+    }
+}
+void Tablero::imprimirTableroP2() {
+    int lenTesP1 = getLongJugador2();
+    int lenEspP1 = getLongEspiasP2();
+    for(int i = 0; i < lenTesP1; i++){
+        int auxFil = tesorosSegundoJugador[i].first;
+        int auxCol = tesorosSegundoJugador[i].second;
+        tablero[auxFil][auxCol] = '$';
+    }
+    for(int j = 0; j < lenEspP1; j++){
+        int betaFil = espiasSegundoJugador[j].first;
+        int betaCol = espiasSegundoJugador[j].second;
+        tablero[betaFil][betaCol] = 'E';
     }
 }

@@ -12,8 +12,14 @@ public:
     Juego(); //constructor de la clase.
     int getTutnoActual();
     void incrementarTurno();
-    void primerIngreso();
-    //void turno();
+    bool ingresoTesP1(int fila, int columna);
+    bool ingresoTesP2(int fila, int columna);
+    void ingresoInicialP1();
+    void ingresoInicialP2();
+    void turnoPrimerJugador();
+    void turnoSegundoJugador();
+    void turno();
+    void juego();
 };
 
 #endif

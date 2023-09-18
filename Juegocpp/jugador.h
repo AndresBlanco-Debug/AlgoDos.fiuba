@@ -13,6 +13,9 @@ public:
     void aumentarEspias();
     void reducirTesoros();
     void tesoroRecuperado();
+    bool ingresoTesoro();
     char pedirIngreso();
+    int moverTesoro();
+    int getTesorosTotales();
 };
 #endif
