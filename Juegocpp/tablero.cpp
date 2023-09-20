@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "tablero.h"
 using namespace std;
 Tablero::Tablero(){
@@ -292,45 +293,72 @@ bool Tablero::invalidarCasilla(int fila, int columna) {
     }
     return invalido;
 }
+void Tablero::reactivarCasilla(int turno) {
+    for(int i = 0; i < casillaInvalida.size(); i++){
+        if(turno % 5 == 0){
+            casillaInvalida.erase(casillaInvalida.begin() + i);
+        }
+    }
+}
 void Tablero::imprimirTableroP1() {
-    int lenTesP1 = getLongJugador1();
-    int lenEspP1 = getLongEspiasP1();
-    for(int i = 0; i < lenTesP1; i++){
+    int lenTes = getLongJugador1();
+    int lenEsp = getLongEspiasP1();
+    for(int fila = 0; fila < filas; fila++){
+        for(int columna = 0; columna < columnas; columna++){
+            tablero[fila][columna] = '#';
+        }
+    }
+    for(int i = 0; i < lenTes; i++){
         int auxFil = tesorosPrimerJugador[i].first;
         int auxCol = tesorosPrimerJugador[i].second;
         tablero[auxFil][auxCol] = '$';
     }
-    for(int j = 0; j < lenEspP1; j++){
+    for(int j = 0; j < lenEsp; j++){
         int betaFil = espiasPrimerJugador[j].first;
         int betaCol = espiasPrimerJugador[j].second;
         tablero[betaFil][betaCol] = 'E';
     }
+    ofstream tableroFile("tableroPlayer1.txt");
+    if(tableroFile.is_open()){
+        for(int filaF = 0; filaF < filas; filaF++){
+            for(int colF = 0; colF < columnas; colF++){
+                tableroFile << tablero[filaF][colF];
+            }
+        }
+        tableroFile.close();
+    }
+    else{
+        cout << "No se pudo abrir el archivo, intente mas tarde por favor" << endl;
+    }
 }
 void Tablero::imprimirTableroP2() {
-    int lenTesP1 = getLongJugador2();
-    int lenEspP1 = getLongEspiasP2();
-    for(int i = 0; i < lenTesP1; i++){
+    int lenTes = getLongJugador2();
+    int lenEsp = getLongEspiasP2();
+    for(int fila = 0; fila < filas; fila++){
+        for(int columna = 0; columna < columnas; columna++){
+            tablero[fila][columna] = '#';
+        }
+    }
+    for(int i = 0; i < lenTes; i++){
         int auxFil = tesorosSegundoJugador[i].first;
         int auxCol = tesorosSegundoJugador[i].second;
         tablero[auxFil][auxCol] = '$';
     }
-    for(int j = 0; j < lenEspP1; j++){
+    for(int j = 0; j < lenEsp; j++){
         int betaFil = espiasSegundoJugador[j].first;
         int betaCol = espiasSegundoJugador[j].second;
         tablero[betaFil][betaCol] = 'E';
     }
-}
-void Tablero::mostrarTesorosP1() {
-    int len = getLongJugador1();
-    for(int i = 0; i < len; i++){
-        int x = tesorosPrimerJugador[i].first, y = tesorosPrimerJugador[i].second;
-        cout << "tesoros en las casillas: " << x << ", " << y << endl;
+    ofstream tableroFile("tableroPlayer2.txt");
+    if(tableroFile.is_open()){
+        for(int filaF = 0; filaF < filas; filaF++){
+            for(int colF = 0; colF < columnas; colF++){
+                tableroFile << tablero[filaF][colF];
+            }
+        }
+        tableroFile.close();
     }
-}
-void Tablero::mostrarEspiasP1() {
-    int len = getLongJugador1();
-    for(int i = 0; i < len; i++){
-        int x = espiasPrimerJugador[i].first, y = espiasPrimerJugador[i].second;
-        cout << "espias en las casillas: " << x << ", " << y << endl;
+    else{
+        cout << "No se pudo abrir el archivo, intente mas tarde por favor" << endl;
     }
 }

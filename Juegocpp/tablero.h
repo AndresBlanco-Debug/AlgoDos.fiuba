@@ -46,10 +46,9 @@ public:
     bool tesoroRecuperadoP1();
     bool tesoroRecuperadoP2();
     bool invalidarCasilla(int fila, int columna);
+    void reactivarCasilla(int turno);
     void imprimirTableroP1();
     void imprimirTableroP2();
-    void mostrarTesorosP1();
-    void mostrarEspiasP1();
 };
 
 #endif

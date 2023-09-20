@@ -179,8 +179,7 @@ void Juego::turnoPrimerJugador() {
     else{
         cout <<"Error! respuesta no aceptada, intente en su proximo turno." << endl;
     }
-    //tableroJuego.mostrarTesorosP1();
-    //tableroJuego.mostrarEspiasP1();
+
 }
 void Juego::turnoSegundoJugador() {
     cout << "TURNO DEL SEGUNDO JUGADOR" << endl;
@@ -242,10 +241,15 @@ void Juego::turnoSegundoJugador() {
             }
         }
     }
+    else{
+        cout << "Ingreso invalido, se terminara el turno" << endl;
+    }
 }
 void Juego::turno() {
     turnoPrimerJugador();
+    tableroJuego.imprimirTableroP1();
     turnoSegundoJugador();
+    tableroJuego.imprimirTableroP2();
     incrementarTurno();
 }
 void Juego::juego() {
