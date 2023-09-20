@@ -10,6 +10,7 @@ private:
     int turnoActual;
 public:
     Juego(); //constructor de la clase.
+    void mostrarReglas();
     int getTutnoActual();
     void incrementarTurno();
     bool ingresoTesP1(int fila, int columna);
@@ -19,6 +20,7 @@ public:
     void turnoPrimerJugador();
     void turnoSegundoJugador();
     void turno();
+    bool juegoTerminado();
     void juego();
 };
 

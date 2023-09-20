@@ -5,8 +5,8 @@ class Tablero
 {
 private:
     char tablero[20][20]; //array estatico de 20x20
-    int fila;
-    int columna;
+    int filas;
+    int columnas;
     char casillaSola;
     //Player jugadorGenerico;
     int cantidadTesoros;
@@ -38,14 +38,18 @@ public:
     bool tesoroPerdidoP2();
     bool espiaSobreTesosoP1();
     bool espiaSobreTesosoP2();
-    bool moverTesoroP1(int fila, int columna);
-    bool moverTesoroP2(int fila, int columna);
+    bool seleccionarTesoroP1(int fila, int columna);
+    bool seleccionarTesoroP2(int fila, int columna);
+    bool moverTesoroP1(int fila, int columna, int auxFil, int auxCol);
+    bool moverTesoroP2(int fila, int columna, int auxFil, int auxCol);
     void restringirCasilla(int fila, int columna);
     bool tesoroRecuperadoP1();
     bool tesoroRecuperadoP2();
     bool invalidarCasilla(int fila, int columna);
     void imprimirTableroP1();
     void imprimirTableroP2();
+    void mostrarTesorosP1();
+    void mostrarEspiasP1();
 };
 
 #endif

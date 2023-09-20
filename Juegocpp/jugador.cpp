@@ -5,7 +5,7 @@ using namespace std;
 Player::Player() {
     //tableroJugador; //hay que ver si esto se hace asi
     tesorosTotales = 4;
-    tesorosEnJuego = 4;
+    tesorosEnJuego = 0;
     cantidadEspias = 0;
 }
 
@@ -25,6 +25,10 @@ void Player::reducirTesoros() {
 }
 void Player::tesoroRecuperado() {
     tesorosTotales++;
+}
+void Player::depositarTesoro() {
+    tesorosTotales--;
+    tesorosEnJuego++;
 }
 bool Player::ingresoTesoro() {
     if(tesorosTotales > tesorosEnJuego){
@@ -46,4 +50,7 @@ int Player::moverTesoro() {
 }
 int Player::getTesorosTotales() {
     return tesorosTotales;
+}
+int Player::getTesorosJuego() {
+    return tesorosEnJuego;
 }

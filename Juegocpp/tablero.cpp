@@ -3,14 +3,14 @@
 using namespace std;
 Tablero::Tablero(){
     //constructor de la clase con tablero estatico
-    fila = 20;
-    columna = 20;
+    filas = 20;
+    columnas = 20;
     casillaSola = '#';
     cantidadTesoros = 0;
     cantidadEspias = 0;
     casillaInactiva = 5;
-    for(int i = 0; i < fila; i++){
-        for(int j = 0; j < columna; j++){
+    for(int i = 0; i < filas; i++){
+        for(int j = 0; j < columnas; j++){
             tablero[i][j] = casillaSola;
         }
     }
@@ -34,8 +34,8 @@ void Tablero::reducirPenalidad() {
     casillaInactiva--;
 }
 void Tablero::imprimirTablero(){
-    for(int i = 0; i < fila; i++){
-        for(int j = 0; j < columna; j++){
+    for(int i = 0; i < filas; i++){
+        for(int j = 0; j < columnas; j++){
             cout << tablero[i][j] << ' '; // Agrega esta línea para verificar el valor asignado
         }
         cout << endl;
@@ -63,13 +63,13 @@ bool Tablero::compararEspias() {
     //funcion util para ambos jugadores
     //evalua los espias guardados
     bool infiltrado = false;
-    int longE1 = getLongJugador1();
-    int longE2 = getLongJugador2();
+    int longE1 = getLongEspiasP1();
+    int longE2 = getLongEspiasP2();
     //recorre las coordenadas guardadas
     for(int i = 0; i < longE1; i++){
         for(int j = 0; j < longE2; j++){
             if(espiasPrimerJugador[i] == espiasSegundoJugador[j]){
-                espiasSegundoJugador.erase(espiasPrimerJugador.begin() + i);
+                espiasPrimerJugador.erase(espiasPrimerJugador.begin() + i);
                 espiasSegundoJugador.erase(espiasSegundoJugador.begin() + j);
                 //elimina los espias con coordenadas iguales;
                 infiltrado = true;
@@ -92,7 +92,7 @@ bool Tablero::guardarIngresoTesoroP1(int fila, int columna) {
     else{
         tesorosPrimerJugador.push_back(coordenadas);
         cout << "Tesoro ingresado exitosamente" << endl;
-        imprimirTablero();
+        tablero[fila][columna] = '$';
     }
     return ingresoVal;
 }
@@ -127,6 +127,7 @@ bool Tablero::espiaInfiltradoP1(int fila, int columna) {
     else{
         espiasPrimerJugador.push_back(coordenadas);
         cout << "Espia infiltrado exitosamente" << endl;
+        tablero[fila][columna] = 'E';
     }
     return infiltracion;
 }
@@ -182,6 +183,7 @@ bool Tablero::espiaSobreTesosoP1() {
     for(int i = 0; i < lenTes; i++){
         for(int j = 0; j < lenEsp; j++){
             if(tesorosPrimerJugador[i] == espiasPrimerJugador[j]){
+                tesorosPrimerJugador.erase(tesorosPrimerJugador.begin() + i);
                 extraccion = true;
             }
         }
@@ -202,19 +204,18 @@ bool Tablero::espiaSobreTesosoP2() {
     }
     return extraccion;
 }
-bool Tablero::moverTesoroP1(int fila, int columna) {
+bool Tablero::seleccionarTesoroP1(int fila, int columna) {
     bool valido = false;
     int len = getLongJugador1();
     pair<int, int> coordenadas(fila,columna);
     for(int i = 0; i < len; i++){
         if(coordenadas == tesorosPrimerJugador[i]){
-            cout << "Error el jugador ya tiene un teesoro en esa casilla" << endl;
             valido = true;
         }
     }
     return valido;
 }
-bool Tablero::moverTesoroP2(int fila, int columna) {
+bool Tablero::seleccionarTesoroP2(int fila, int columna) {
     bool valido = false;
     int len = getLongJugador1();
     pair<int, int> coordenadas(fila,columna);
@@ -225,6 +226,19 @@ bool Tablero::moverTesoroP2(int fila, int columna) {
         }
     }
     return valido;
+}
+bool Tablero::moverTesoroP1(int fila, int columna, int auxFil, int auxCol) {
+    if(seleccionarTesoroP1(fila,columna)){
+        guardarIngresoTesoroP1(auxFil,auxCol);
+        return true;
+    }
+    return false;
+}
+bool Tablero::moverTesoroP2(int fila, int columna, int auxFil, int auxCol) {
+    if(seleccionarTesoroP2(fila,columna)){
+        return true;
+    }
+    return false;
 }
 void Tablero::restringirCasilla(int fila, int columna) {
     //funcion agrega la casilla restringida, nada mas.
@@ -304,5 +318,19 @@ void Tablero::imprimirTableroP2() {
         int betaFil = espiasSegundoJugador[j].first;
         int betaCol = espiasSegundoJugador[j].second;
         tablero[betaFil][betaCol] = 'E';
+    }
+}
+void Tablero::mostrarTesorosP1() {
+    int len = getLongJugador1();
+    for(int i = 0; i < len; i++){
+        int x = tesorosPrimerJugador[i].first, y = tesorosPrimerJugador[i].second;
+        cout << "tesoros en las casillas: " << x << ", " << y << endl;
+    }
+}
+void Tablero::mostrarEspiasP1() {
+    int len = getLongJugador1();
+    for(int i = 0; i < len; i++){
+        int x = espiasPrimerJugador[i].first, y = espiasPrimerJugador[i].second;
+        cout << "espias en las casillas: " << x << ", " << y << endl;
     }
 }
