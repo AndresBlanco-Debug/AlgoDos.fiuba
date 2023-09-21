@@ -55,6 +55,10 @@ void Juego::ingresoInicialP1() {
     while(ingresos < 4){
         int fila, columna;
         primerJugador.pedirCoordenadas(fila,columna);
+        while(!tableroJuego.validarCasilla(fila,columna)){
+            cout << "Error! casilla fuera de rango" << endl;
+            primerJugador.pedirCoordenadas(fila,columna);
+        }
         while(!ingresoTesP1(fila,columna)){
             cout << "Error! el jugador ya posee un tesoro en la casilla" << endl;
             primerJugador.pedirCoordenadas(fila,columna);
@@ -66,13 +70,16 @@ void Juego::ingresoInicialP1() {
         primerJugador.depositarTesoro();
         ingresos++;
     }
-    //tableroJuego.mostrarTesoros();
 }
 void Juego::ingresoInicialP2() {
     int ingresos = 0;
     while( ingresos < 4){
         int fila, columna;
         segundoJugador.pedirCoordenadas(fila,columna);
+        while(!tableroJuego.validarCasilla(fila,columna)){
+            cout << "Error! casilla fuera de rango" << endl;
+            segundoJugador.pedirCoordenadas(fila,columna);
+        }
         while(!ingresoTesP2(fila,columna)){
             cout << "Error! el jugador ya posee un tesoro en la casilla" << endl;
             segundoJugador.pedirCoordenadas(fila,columna);
@@ -95,6 +102,11 @@ void Juego::turnoPrimerJugador() {
     if(respuesta == '$' && primerJugador.ingresoTesoro()){
         //se valida el ingreso del usuario y si el jugador tiene tesoros disponibles para depositar
         primerJugador.pedirCoordenadas(fila,columna);
+        //Se valida que las casillas esten en rango
+        while(!tableroJuego.validarCasilla(fila,columna)){
+            cout << "Error! la casilla no esta en rango" << endl;
+            primerJugador.pedirCoordenadas(fila,columna);
+        }
         //HAY QUE VALIDAR QUE LA CASILLA NO ESTE OCUPADA CON UN TESORO DEL JUGADOR
         while(!(tableroJuego.guardarIngresoTesoroP1(fila,columna))){
             cout << "Error! se ha intentado ingresar un tesoro en una casilla ocupada" << '\n';
@@ -123,6 +135,10 @@ void Juego::turnoPrimerJugador() {
     else if(respuesta == 'E' || respuesta == 'e'){
         //Caso cuando se ingresa un espia
         primerJugador.pedirCoordenadas(fila,columna);
+        while(!tableroJuego.validarCasilla(fila,columna)){
+            cout << "Error! la casilla no esta en rango" << endl;
+            primerJugador.pedirCoordenadas(fila,columna);
+        }
         //el jugador ingresa las coordenadas
         //los casos posibles que se pueden experimentar son:
         //CASO 1: el espia se ingresa sobre un tesoro del jugador y lo recupera
@@ -171,6 +187,10 @@ void Juego::turnoPrimerJugador() {
                     }
                     cout << "Ingrese la casilla a la que desea mover el tesoro" << endl;
                     primerJugador.pedirCoordenadas(coordX, coordY);
+                    while(!tableroJuego.validarCasilla(coordX, coordY)){
+                        cout << "Error! la casilla no esta en rango" << endl;
+                        primerJugador.pedirCoordenadas(coordX,coordY);
+                    }
                     tableroJuego.moverTesoroP1(auxFil, auxCol, coordX, coordY);
                 }
             }
@@ -186,6 +206,10 @@ void Juego::turnoSegundoJugador() {
     //esta funcion esta pensada para abarcar todas las funcionalidades poibles
     int fila, columna;
     char respuesta = segundoJugador.pedirIngreso();
+    while(!tableroJuego.validarCasilla(fila,columna)){
+        cout << "Error! la casilla no esta en rango" << endl;
+        segundoJugador.pedirCoordenadas(fila,columna);
+    }
     //le pregunta al jugador que se desea ingresar
     if(respuesta == '$' && segundoJugador.ingresoTesoro()){
         while(!tableroJuego.guardarIngresoTesoroP2(fila,columna)){
@@ -203,6 +227,10 @@ void Juego::turnoSegundoJugador() {
     }
     else if(respuesta == 'E' || respuesta == 'e'){
         segundoJugador.pedirCoordenadas(fila,columna);
+        while(!tableroJuego.validarCasilla(fila,columna)){
+            cout << "Error! la casilla no esta en rango" << endl;
+            segundoJugador.pedirCoordenadas(fila,columna);
+        }
         while(!tableroJuego.espiaInfiltradoP2(fila,columna)){
             cout << "Error! el jugador ya tiene un espia en esa casilla" << endl;
             segundoJugador.pedirCoordenadas(fila,columna);
@@ -230,9 +258,14 @@ void Juego::turnoSegundoJugador() {
                     while(!tableroJuego.seleccionarTesoroP2(fila,columna)){
                         cout << "Error! no hay ningun tesoro en la casilla seleccionada" << endl;
                         segundoJugador.pedirCoordenadas(auxFil,auxCol);
+
                     }
                     cout << "Por favor ingrese las casillas donde quiere mover el tesoro" << endl;
                     segundoJugador.pedirCoordenadas(coordX,coordY);
+                    while(!tableroJuego.validarCasilla(coordX,coordY)){
+                        cout << "Error! la casilla no esta en rango" << endl;
+                        segundoJugador.pedirCoordenadas(coordX,coordY);
+                    }
                     tableroJuego.moverTesoroP2(auxFil, auxCol, coordX, coordY);
                 }
                 else{
@@ -255,7 +288,10 @@ void Juego::turno() {
 void Juego::juego() {
     mostrarReglas();
     ingresoInicialP1();
+    tableroJuego.imprimirTableroP1();
+    cout << "ingresos del jugador 2\n" << endl;
     ingresoInicialP2();
+    tableroJuego.imprimirTableroP2();
     cout << '\n' << endl;
     while(!juegoTerminado()){
         turno();

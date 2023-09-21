@@ -26,6 +26,7 @@ public:
     int getLongEspiasP2();
     void reducirPenalidad();
     int getLenInvalidCoord();
+    bool validarCasilla(int fila, int columna);
     void imprimirTablero();
     char getCasillaActual(int fila, int columna);
     bool compararTesoros();

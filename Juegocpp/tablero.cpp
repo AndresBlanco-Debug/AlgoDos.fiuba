@@ -46,6 +46,12 @@ char Tablero::getCasillaActual(int fila, int columna) {
     return tablero[fila][columna];
 }
 //VALIDACIONES
+bool Tablero::validarCasilla(int fila, int columna) {
+    if(fila < 20 && columna < 20){
+        return true;
+    }
+    return false;
+}
 bool Tablero::compararTesoros(){
     bool encontrado = false;
     int longitud = getLongJugador1();
@@ -322,7 +328,7 @@ void Tablero::imprimirTableroP1() {
     if(tableroFile.is_open()){
         for(int filaF = 0; filaF < filas; filaF++){
             for(int colF = 0; colF < columnas; colF++){
-                tableroFile << tablero[filaF][colF];
+                tableroFile << tablero[filaF][colF] << ' ';
             }
         }
         tableroFile.close();
@@ -334,31 +340,33 @@ void Tablero::imprimirTableroP1() {
 void Tablero::imprimirTableroP2() {
     int lenTes = getLongJugador2();
     int lenEsp = getLongEspiasP2();
-    for(int fila = 0; fila < filas; fila++){
-        for(int columna = 0; columna < columnas; columna++){
-            tablero[fila][columna] = '#';
-        }
-    }
-    for(int i = 0; i < lenTes; i++){
-        int auxFil = tesorosSegundoJugador[i].first;
-        int auxCol = tesorosSegundoJugador[i].second;
-        tablero[auxFil][auxCol] = '$';
-    }
-    for(int j = 0; j < lenEsp; j++){
-        int betaFil = espiasSegundoJugador[j].first;
-        int betaCol = espiasSegundoJugador[j].second;
-        tablero[betaFil][betaCol] = 'E';
-    }
     ofstream tableroFile("tableroPlayer2.txt");
-    if(tableroFile.is_open()){
-        for(int filaF = 0; filaF < filas; filaF++){
-            for(int colF = 0; colF < columnas; colF++){
-                tableroFile << tablero[filaF][colF];
+    if (tableroFile.is_open()) {
+        // Inicializar el tablero con caracteres #
+        for (int fila = 0; fila < filas; fila++) {
+            for (int columna = 0; columna < columnas; columna++) {
+                tablero[fila][columna] = '#';
             }
+        }
+        for (int i = 0; i < lenTes; i++) {
+            int auxFil = tesorosSegundoJugador[i].first;
+            int auxCol = tesorosSegundoJugador[i].second;
+            tablero[auxFil][auxCol] = '$';
+        }
+        for (int j = 0; j < lenEsp; j++) {
+            int betaFil = espiasSegundoJugador[j].first;
+            int betaCol = espiasSegundoJugador[j].second;
+            tablero[betaFil][betaCol] = 'E';
+        }
+        for (int filaF = 0; filaF < filas; filaF++) {
+            for (int colF = 0; colF < columnas; colF++) {
+                tableroFile << tablero[filaF][colF] << ' ';
+            }
+            tableroFile << '\n';
         }
         tableroFile.close();
     }
-    else{
+    else {
         cout << "No se pudo abrir el archivo, intente mas tarde por favor" << endl;
     }
 }
