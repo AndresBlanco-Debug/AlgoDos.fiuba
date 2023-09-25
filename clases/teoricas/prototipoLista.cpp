@@ -36,7 +36,7 @@ void insertarLista(Nodo *&lista, int n){
         aux2 -> siguiente = nuevo_nodo;
     }
     nuevo_nodo -> siguiente = aux1;
-    cout << "\tElemento" << n << "insertdo correctamente"
+    cout << "\tElemento" << n << "insertdo correctamente" << endl;
 }
 //3 casos para agrgar elementos a la lista
 //1. Lista = NULL
