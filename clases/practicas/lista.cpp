@@ -80,11 +80,21 @@ void listaEnteros::borrarPrimerDato(){
     topeLista--;
 }
 void listaEnteros::borrarUltimoDato(){
+    vectorLista[topeLista] = vectorLista[topeLista - 1];
     topeLista--;
 }
-//
-void listaEnteros::eliminarDato(int dato){
+//FUNCION QUE ELIMINA TODOS LOS DATOS IGUALES DE LA LISTA
+void listaEnteros::eliminarDatoTotal(int dato){
     if(elementoEnLista(dato)){
-        
+        int indice = 0;
+        while(indice < topeLista){
+            if(vectorLista[indice] == dato){
+                vectorLista[indice] = vectorLista[indice + 1];
+                topeLista--;
+            }
+            indice++;   
+        }if(vectorLista[topeLista] == dato){
+            borrarUltimoDato();
+        }
     }
 }

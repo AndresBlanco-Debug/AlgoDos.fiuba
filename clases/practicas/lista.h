@@ -34,7 +34,7 @@ class listaEnteros
         bool listaLlena();
         void ingresarDato(int numero);
         void eliminarDato(int dato);
-        int elemento_X_Posicion(int posicion);
+        void eliminarDatoTotal(int digito);
 };
 
 #endif
