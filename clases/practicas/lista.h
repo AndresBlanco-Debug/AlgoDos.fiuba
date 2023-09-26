@@ -27,10 +27,14 @@ class listaEnteros
         -Listar en forma inversa*/
         void borrarPrimerDato();
         void borrarUltimoDato();
+        int getLongLista();
+        bool elementoEnLista(int numero);
+        int getValorActual(int posicion);
         void borrar_X_Pos(int posicion);
         bool listaLlena();
         void ingresarDato(int numero);
-        
+        void eliminarDato(int dato);
+        int elemento_X_Posicion(int posicion);
 };
 
 #endif
