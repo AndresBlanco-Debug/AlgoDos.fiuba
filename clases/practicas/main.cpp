@@ -2,7 +2,7 @@
 #include "lista.h"
 using namespace std;
 
-int main(){
+/*int submain(){
     
     listaEnteros lEnt;
     lEnt.ingresarDato(1);
@@ -58,6 +58,18 @@ int main(){
     for(int i = 1; i <= lEnt.getLongLista(); i++){
         cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
     } 
+
+    return 0;
+}*/
+
+int main(){
+
+    lista *vector = new lista();
+    int *punteroNumero;
+    int numero = 25;
+    punteroNumero = &numero;
+    vector -> ingresarDato(punteroNumero);
+    vector -> mostrarElementos();
 
     return 0;
 }

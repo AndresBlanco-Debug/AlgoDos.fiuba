@@ -1,40 +1,18 @@
-#ifndef LISTA_H_INCLUDED
-#define LISTA_H_INCLUDED
-
-const int MAX_TAMANO = 1024;
-
-class listaEnteros
+#ifndef LISTA_H
+#define LISTA_H
+#include "nodo.h"
+class Lista
 {
-    private:
-        int vectorLista[MAX_TAMANO];
-        int topeLista;
-    public:
-        //Constuctor de la lista
-        listaEnteros();
-        //Destructor de la clase
-        ~listaEnteros();
-        /*Casos que tiene que cumplir la lista
-        -Borrar primero
-        -Borrar el ultimo
-        -Borrar uno en cualquier posicion
-        -Borrar en primera aparicion = (Se indica que elemento se quiere robar y se elimina el primero)
-        -Borrar elementos = (se indica que elemento se quiere borrar y se eliminan todos)
-        -Obtener primero
-        -Obtener ultimo
-        -Obtener el elemento de una posicion determinada
-        -Obtener el tamano de la lista
-        -Listar todos los elementos de la lista
-        -Listar en forma inversa*/
-        void borrarPrimerDato();
-        void borrarUltimoDato();
-        int getLongLista();
-        bool elementoEnLista(int numero);
-        int getValorActual(int posicion);
-        void borrar_X_Pos(int posicion);
-        bool listaLlena();
-        void ingresarDato(int numero);
-        void eliminarDato(int dato);
-        void eliminarDatoTotal(int digito);
+private:
+    Nodo *punteroNodo;
+public:
+    Lista();
+    void altaFinal(int); //ALTA AL FINAL
+    void altaPrincipio(int);//ALTA AL PRINCIPIO
+    void bajaLista(int);//BAJA LA PRIMERA APARICION DE UN ELEMENTO
+    bool enLista(int);//AVISA SI EL NUMERO ESTA EN LA LISTA
+    void emiteLista();//EMITE LA LISTA
+    ~Lista();
 };
 
 #endif
