@@ -3,12 +3,20 @@
 using namespace std;
 
 Lista::Lista(){}
+
+//NI IDEA PERO HAY QUE VER QUE HACE
 void Lista::altaFinal(int numero){
     Nodo *auxPuntero = punteroNodo;
     //MIENTRAS EL NODO SEA SIFERENTE DE NULL AND:
     //MIENTRAS EL PROXIMO NODO SEA DIFERENTE DE NULL
     while((auxPuntero) && (auxPuntero -> getSigNodo())){
         auxPuntero = auxPuntero -> getSigNodo();
+        if(auxPuntero){
+            auxPuntero -> setSigNodo(new Nodo(numero,0));
+        }
+        else{
+            punteroNodo = new Nodo(numero, punteroNodo);
+        }
 
     }
 }
@@ -29,18 +37,6 @@ bool Lista::enLista(int elemento){
         }
     }
     return encontrado;
-}
-//NI IDEA ASI QUE VAMOS A VER QUE PEDO CUANDO SE DEBUGUEE
-void Lista::altaFinal(int entero){
-    Nodo *punteroAux = punteroNodo;
-    while((punteroAux) && (punteroAux->getSigNodo())){
-        punteroAux = punteroAux -> getSigNodo();
-        if(punteroAux){
-            punteroAux -> setSigNodo(new Nodo(entero,0));
-        }else{
-            punteroNodo = new Nodo(entero,punteroNodo);
-        }
-    }
 }
 //ELIMINA LA PRIMERA APARICION DEL ELEMENTO EN LA LISTA
 void Lista::bajaLista(int numero){
