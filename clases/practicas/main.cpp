@@ -64,12 +64,40 @@ using namespace std;
 
 int main(){
 
-    lista *vector = new lista();
-    int *punteroNumero;
-    int numero = 25;
-    punteroNumero = &numero;
-    vector -> ingresarDato(punteroNumero);
-    vector -> mostrarElementos();
+    Lista lista;
+    cout << "\nalta al final de 1\n";
+    lista.altaFinal(1);
+    lista.emiteLista();
 
+    cout << "\nalta al final de 2\n";
+    lista.altaFinal(2);
+    lista.emiteLista();
+
+    cout << "\nalta al final de 3\n";
+    lista.altaFinal(3);
+    lista.emiteLista();
+
+    cout << "\nalta al final de 4\n";
+    lista.altaFinal(4);
+    lista.emiteLista();
+
+    cout << "\nalta al principio de 5\n";
+    lista.altaPrincipio(5);
+    lista.emiteLista();
+
+    cout << "\nbaja 4\n";
+    lista.bajaLista(4);
+    lista.emiteLista();
+
+    cout << "\nbaja 1\n";
+    lista.bajaLista(1);
+    lista.emiteLista();
+
+    cout <<"\nElemento en cualquier posicion, numero 8, posicion 2\n";
+    lista.altaXPosicion(8,2);
+    lista.emiteLista();
+
+    cout << endl;
+    
     return 0;
 }

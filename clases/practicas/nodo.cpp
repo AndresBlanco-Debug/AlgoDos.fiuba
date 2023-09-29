@@ -2,7 +2,7 @@
 #include "nodo.h"
 
 //SE INICIALIZAN LOS PUNTEROS EN NULL
-Nodo::Nodo(int valor, Nodo *primerNodo){
+Nodo::Nodo(int valor, Nodo *primerNodo = 0){
     info = valor;
     siguiente = primerNodo;
 }

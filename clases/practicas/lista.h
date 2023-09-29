@@ -3,16 +3,17 @@
 #include "nodo.h"
 class Lista
 {
-private:
-    Nodo *punteroNodo;
-public:
-    Lista();
-    void altaFinal(int); //ALTA AL FINAL
-    void altaPrincipio(int);//ALTA AL PRINCIPIO
-    void bajaLista(int);//BAJA LA PRIMERA APARICION DE UN ELEMENTO
-    bool enLista(int);//AVISA SI EL NUMERO ESTA EN LA LISTA
-    void emiteLista();//EMITE LA LISTA
-    ~Lista();
+    private:
+        Nodo *punteroLista;
+    public:
+        Lista();
+        void altaFinal(int);
+        void altaPrincipio(int);
+        void altaXPosicion(int,int);
+        void bajaLista(int);
+        bool datoEnLista(int);
+        void emiteLista();
+        ~Lista();
 };
 
 #endif
