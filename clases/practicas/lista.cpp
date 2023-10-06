@@ -152,9 +152,11 @@ void Lista::eliminarDato(int elemento) {
         while(puntAux){
             if(puntAux->getInfo() == elemento){
                 nodoAnterior ->setSigNodo(puntAux->getSigNodo());
+                delete puntAux;
+                puntAux = nodoAnterior -> getSigNodo();
             }
-
-
+            nodoAnterior = puntAux;
+            puntAux = puntAux -> getSigNodo();
         }
     }
 }
