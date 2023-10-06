@@ -111,7 +111,7 @@ void Lista::bajaFinal() {
     }
     else{
         delete punteroLista;
-        punteroLista = nullptr;
+        punteroLista = 0;
     }
 }
 //
@@ -148,14 +148,43 @@ void Lista::eliminarDato(int elemento) {
     Nodo *puntAux = punteroLista, *nodoAnterior;
     //primero hay que comprobar que el dato esta en la lista
     //se recorre la lista para saber la cantidad de elementos
+    //Tenemos que considerar 6 casos
+    //1er caso: lista con un unico elemento
+    //2do caso: solo es el primer elemento de la lista
+    //3er caso: eliminar el ultimo elemento de la lista
+    //4to caso: eliminar el elemento a la mitad de la lista
+    //5to caso: eliminar elementos consecutivos
+    //6to caso: elemento a eliminar no esta en la lista
     if(datoEnLista(elemento)){
+        int indice  = 0;
         while(puntAux){
             if(puntAux->getInfo() == elemento){
-                nodoAnterior ->setSigNodo(puntAux->getSigNodo());
-                delete puntAux;
-                puntAux = nodoAnterior -> getSigNodo();
+                //Caso que sea el primer/unico elemeto de la lista
+                if(punteroLista->getInfo() == elemento){
+                    nodoAnterior = punteroLista;
+                    punteroLista = punteroLista -> getSigNodo();
+                    puntAux = puntAux -> getSigNodo();
+                    delete nodoAnterior;
+                }
+                else{
+                    if(puntAux->getSigNodo()){
+                        //Entra aca si el valor no esta en el principio o en el final
+                        nodoAnterior = puntAux; 
+                        //se guarda la posicion del nodo anterior
+                        Nodo *proxNodo = puntAux -> getSigNodo();
+                        //se crea un nodo provicional que apunta al proximo nodo
+                        delete puntAux;
+                        //se borra el nodo con el dato que queremos eliminar
+                        nodoAnterior ->setSigNodo(proxNodo);
+                        //se enlaza el nodo anterior al proximo nodo
+                    }
+                    else{
+                        //entra aca si si no se cumple todos los demas
+                        //entonces el elemento esta al final de la lista
+                        bajaFinal();
+                    }
+                }
             }
-            nodoAnterior = puntAux;
             puntAux = puntAux -> getSigNodo();
         }
     }
