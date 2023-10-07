@@ -103,10 +103,22 @@ void Lista::bajaFinal() {
     //caso la lista tiene elementos
     Nodo *puntAux = punteroLista, *nodoAnterior;
     while((puntAux) && (puntAux -> getSigNodo())){
+        nodoAnterior = puntAux;
+        //se iguala el nodo anterior al puntero antes de iincrementar su valor, asi tenemos el nodo anterior controlado
         puntAux = puntAux -> getSigNodo();
         //se recorre la lista hasta llegar al ultimo elemento
     }
-    nodoAnterior = puntAux;
+    if(nodoAnterior){
+        nodoAnterior -> setSigNodo(0);
+        //se hace que el nodo anterior apunte al nodo nulo
+        delete puntAux;
+    }
+    else{
+        //hay un solo elemento de la lista xd
+        delete punteroLista;
+        punteroLista = NULL;
+    }
+    
 
 }
 //
@@ -139,8 +151,7 @@ void Lista::bajaXPosicion(int posicion) {
     }
 }
 //
-void Lista::eliminarDato(int elemento) {
-    Nodo *puntAux = punteroLista, *nodoAnterior;
+void Lista::eliminarDato(int elemento){
     //primero hay que comprobar que el dato esta en la lista
     //se recorre la lista para saber la cantidad de elementos
     //Tenemos que considerar 6 casos
@@ -150,42 +161,49 @@ void Lista::eliminarDato(int elemento) {
     //4to caso: eliminar el elemento a la mitad de la lista
     //5to caso: eliminar elementos consecutivos
     //6to caso: elemento a eliminar no esta en la lista
+    Nodo *puntAux = punteroLista, *nodoAnterior;
     if(datoEnLista(elemento)){
-        int indice  = 0;
         while(puntAux){
-            if(puntAux->getInfo() == elemento){
-                //Caso que sea el primer/unico elemeto de la lista
-                if(punteroLista->getInfo() == elemento){
+            if((puntAux -> getInfo()) == elemento){
+                if(nodoAnterior == NULL){
+                    //si el nodo anterior es nulo entonces estamos en el primer elemento de la lista.
                     nodoAnterior = punteroLista;
+                    //se pone el nodo anterior como el nodo que queremos borrar
                     punteroLista = punteroLista -> getSigNodo();
-                    puntAux = puntAux -> getSigNodo();
+                    //se aumenta el inicio de la lista en general
+                    puntAux = punteroLista;
+                    //se actualiza a punteroAux para que empiece en la posicion correcta
                     delete nodoAnterior;
+                    //se borra el nodo con el elemento asociado
                 }
                 else{
+                    //se entra aca cuando el dato a borrar no esta en la primera posicion
                     if(puntAux->getSigNodo()){
-                        //Entra aca si el valor no esta en el principio o en el final
-                        nodoAnterior = puntAux; 
-                        //se guarda la posicion del nodo anterior
-                        Nodo *proxNodo = puntAux -> getSigNodo();
-                        //se crea un nodo provicional que apunta al proximo nodo
+                        //si la posicion tiene un nodo siguiente, entonces el elemento no es el ultimo de la lista
+                        nodoAnterior -> setSigNodo((puntAux->getSigNodo()));
+                        //Se enlaza al nodo anterior al nodo actual con el nodo siguiente
+                        //nodoAnterior -> NodoActual(puntAux) -> Nodosiguiente(puntAux->getSigNoso())
                         delete puntAux;
-                        //se borra el nodo con el dato que queremos eliminar
-                        nodoAnterior ->setSigNodo(proxNodo);
-                        //se enlaza el nodo anterior al proximo nodo
+                        //nodoAnterior -> Nodosiguiente(puntAux->getSigNodo())
                         puntAux = nodoAnterior;
+                        //nodoAnterior -> nodoActual(puntAux)
                     }
                     else{
-                        //se entra si el ultimo elemento de la lista == elemento
-                        //hay que eliminar el nodo actual y hacer que el nodo aterior apunte a NULL
-                        //nodoAnterior = puntAux;
-                        //se almacena la posicion del ultimo nodo, ahora hay que hacer que la ultima posicion sea null
-                        //delete puntAux;
-                        continue;
+                        //se entra aca si el elemento esta en la ultima posicion
+                        //nodoAnterior -> ultimoNodo(puntAux)
+                        delete puntAux;
+                        //nodoAnterior -> segmentation fault (core dumped)
+                        nodoAnterior -> setSigNodo(0);
+                        //nodoAnterior(penultimo nodo) , nodoSiguiente = NULL
+                        puntAux = nodoAnterior;
+                        //nodoAnterior -> NULL
                     }
                 }
             }
-            //nodoAnterior = puntAux;
+            nodoAnterior = puntAux;
+            //esto nos permite llevar un control del nodo anterior y el nodo actual para facilitar el trabajo
             puntAux = puntAux -> getSigNodo();
+            //asi podemos llevar un control del nodo anterior
         }
     }
 }
