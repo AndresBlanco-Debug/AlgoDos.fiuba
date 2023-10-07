@@ -97,6 +97,27 @@ int main(){
     lista.altaXPosicion(8,2);
     lista.emiteLista();
 
+    cout << "\nBaja en ultima posicion\n";
+    lista.bajaFinal();
+    lista.emiteLista();
+
+    cout <<"\nPrueba de funcion que elimina todas las apariciones de un dato\n";
+    lista.altaFinal(17);
+    lista.altaFinal(5);
+    lista.altaFinal(99);
+    lista.altaFinal(17);
+    lista.altaFinal(17);
+    lista.altaFinal(23);
+    lista.altaFinal(85);
+    lista.altaFinal(17);
+    cout <<"\nEmitimos la lista\n";
+    lista.emiteLista();
+    cout <<"\nUsamos la funcion\n";
+    lista.eliminarDato(17);
+    cout <<"\nEmitimos la lista\n";
+    lista.emiteLista();
+
+
     cout << endl;
     
     return 0;

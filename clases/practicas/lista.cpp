@@ -60,7 +60,7 @@ bool Lista::datoEnLista(int elemento){
 void Lista::emiteLista(){
     Nodo *punteroAux = punteroLista;
     while(punteroAux){
-        cout << punteroAux -> getInfo();
+        cout << punteroAux -> getInfo() << ", ";
         punteroAux = punteroAux -> getSigNodo();
     }
 }
@@ -98,21 +98,16 @@ void Lista::bajaPricipio() {
         cout << "\nActualmente no hay elementos en la lista, intente nuevamente\n" << endl;
     }
 }
-//
+//ESTO CAUSA QUE SE ROMPA LA FUNCION RECURSIVA
 void Lista::bajaFinal() {
-    //CASO 1: la lista tiene elementos
-    Nodo *punteroAux = punteroLista, *punteroAnterior = punteroAux;
-    while((punteroAux) && (punteroAux -> getSigNodo())){
-        punteroAux = punteroAux -> getSigNodo();
-    }//cuando se borra el nodo auxiliar
-    if(punteroAux){
-        punteroAnterior -> setSigNodo(0);
-        delete punteroAux;
+    //caso la lista tiene elementos
+    Nodo *puntAux = punteroLista, *nodoAnterior;
+    while((puntAux) && (puntAux -> getSigNodo())){
+        puntAux = puntAux -> getSigNodo();
+        //se recorre la lista hasta llegar al ultimo elemento
     }
-    else{
-        delete punteroLista;
-        punteroLista = 0;
-    }
+    nodoAnterior = puntAux;
+
 }
 //
 void Lista::bajaXPosicion(int posicion) {
@@ -177,14 +172,19 @@ void Lista::eliminarDato(int elemento) {
                         //se borra el nodo con el dato que queremos eliminar
                         nodoAnterior ->setSigNodo(proxNodo);
                         //se enlaza el nodo anterior al proximo nodo
+                        puntAux = nodoAnterior;
                     }
                     else{
-                        //entra aca si si no se cumple todos los demas
-                        //entonces el elemento esta al final de la lista
-                        bajaFinal();
+                        //se entra si el ultimo elemento de la lista == elemento
+                        //hay que eliminar el nodo actual y hacer que el nodo aterior apunte a NULL
+                        //nodoAnterior = puntAux;
+                        //se almacena la posicion del ultimo nodo, ahora hay que hacer que la ultima posicion sea null
+                        //delete puntAux;
+                        continue;
                     }
                 }
             }
+            //nodoAnterior = puntAux;
             puntAux = puntAux -> getSigNodo();
         }
     }
