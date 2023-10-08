@@ -208,6 +208,41 @@ void Lista::eliminarDato(int elemento){
     }
 }
 //
+void Lista::mostrarPrimerElemento(){
+    Nodo *nodoActual = punteroLista;
+    if(nodoActual){
+        cout << (nodoActual->getInfo());
+    }
+    else{
+        cout <<"\nError, lista vacia o error de programa\n";
+    }
+}
+//
+void Lista::mostrarUltimoElemento(){
+    Nodo *nodoActual = punteroLista;
+    if(nodoActual){
+        while((nodoActual) && (nodoActual -> getSigNodo())){
+            nodoActual = nodoActual -> getSigNodo();
+        }
+        cout << (nodoActual -> getInfo());
+    }
+    else{
+        cout <<"\nError, lista vacia o error de programa\n";
+    }
+}
+//
+void Lista::mostrarXElemento(int posicion){
+    Nodo *nodoActual = punteroLista;
+    int indice = 0;
+    if(nodoActual){
+        while((nodoActual) && (nodoActual -> getSigNodo()) && (indice < posicion - 1)){
+            nodoActual = nodoActual -> getSigNodo();
+            indice++;
+        }
+        cout << (nodoActual -> getInfo());
+    }
+}
+//
 Lista::~Lista(){
     //EN EL DESTRUCTOR HAY QUE RECORRER EL NODO DE LA LISTA ORIGINAL
     if(punteroLista){

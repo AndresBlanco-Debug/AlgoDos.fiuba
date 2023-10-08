@@ -27,6 +27,13 @@ class Lista
         //elimina el elemento en cualquier posicion
         void eliminarDato(int);
         //elimina todas las apariciones del mismo elemento en la lista
+        void mostrarPrimerElemento();
+        //muestra primer elemento de la lista, si tiene elementos
+        void mostrarUltimoElemento();
+        //muestra el ultimo elemento de la lista
+        void mostrarXElemento(int);
+        //muestra el elemento en la posicion ingresada
+
 
         ~Lista();
 };

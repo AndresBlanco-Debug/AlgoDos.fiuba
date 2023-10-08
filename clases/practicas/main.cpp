@@ -117,6 +117,17 @@ int main(){
     cout <<"\nEmitimos la lista\n";
     lista.emiteLista();
 
+    cout << "\nProbamos la funcion para obtener el primer valor de la lista\n";
+    lista.mostrarPrimerElemento();
+
+    cout << "\nProbamos la funcion para obtener el ultimo valor de la lista\n";
+    lista.mostrarUltimoElemento();
+
+    cout << "\nProbamos la funcion para obtener cualquier valor de la lista\n";
+    cout <<"\nHacemos 2 casos de prueba diferentes\n";
+    lista.mostrarXElemento(2);
+    cout <<'\n';
+    lista.mostrarXElemento(3);
 
     cout << endl;
     
