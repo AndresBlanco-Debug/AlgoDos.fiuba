@@ -34,6 +34,11 @@ class Lista
         void mostrarXElemento(int);
         //muestra el elemento en la posicion ingresada
         void invertirLista();
+        //EJERCICIO 7 PRACTICA DE LISTAS:
+        /*Diseñar e implementar una nueva ListaEnteros donde el alta será únicamente en
+        orden, por lo que no se indicará la posición. Tener en cuenta que puede haber
+        elementos repetidos.*/
+        void bajaEnOrden();
 
 
         ~Lista();

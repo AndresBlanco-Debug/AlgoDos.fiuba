@@ -253,6 +253,32 @@ void Lista::invertirLista(){
 
 }
 //
+void Lista::bajaEnOrden(){
+    Nodo *nodoActual = punteroLista;
+    //Tenemos que considerar algunos casos antes de operar con la memoria
+    //Caso 1: la Lista solo tiene un elemento
+    //Caso 2: La lista tiene mas de un elemento
+    //Caso 3: La lista esta vacia
+    if(punteroLista){
+        if(nodoActual -> getSigNodo()){
+            //Se entra aca si hay mas de un elemento en la lista
+            nodoActual = punteroLista;
+            punteroLista = punteroLista -> getSigNodo();
+            delete nodoActual;
+            
+        }
+        else{
+            //se entra aca si solo hay un elemento en la lista
+            delete punteroLista;
+            punteroLista = NULL;
+        }
+    }
+    else{
+        cout << "Error! la lista esta vacia" << endl;
+    }
+    
+}
+//
 Lista::~Lista(){
     //EN EL DESTRUCTOR HAY QUE RECORRER EL NODO DE LA LISTA ORIGINAL
     if(punteroLista){

@@ -18,6 +18,7 @@ int ingreso(){
     cout << "Seleccione '11' para mostrar el primer numero de la lista" << '\n';
     cout << "Seleccione '12' para mostrar el ultimo numero de la lista" << '\n';
     cout << "Seleccione '13' para mostrar el numero en la posicion deseada" << '\n';
+    cout << "Seleccione '14' eliminar elememtos en orden (primero al ultimo)" << '\n';
     cout << "Seleccione '0' para cerrar el programa" << '\n';
     cout << endl;
     if(cin >> respuesta){
@@ -75,8 +76,10 @@ void menu(){
             lista.datoEnLista(numero);
             }
             break;
-        case 6:
+        case 6:{
             lista.emiteLista();
+            cout << '\n' << endl;
+            }
             break;
         case 7:
             lista.bajaPricipio();
@@ -105,17 +108,19 @@ void menu(){
             lista.mostrarXElemento(posicion);
             }
             break;
+        case 14:
+            lista.bajaEnOrden();
+            break;
         default:
             cout << "Error! ingreso no valido" << endl;
             break;
-        }
+        } 
+        operacion = ingreso();
     } 
     while (operacion != 0);
 }
 
 int main(){
-
     menu();
-    
     return 0;
 }
