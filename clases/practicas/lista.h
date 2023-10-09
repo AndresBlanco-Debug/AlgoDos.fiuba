@@ -33,6 +33,7 @@ class Lista
         //muestra el ultimo elemento de la lista
         void mostrarXElemento(int);
         //muestra el elemento en la posicion ingresada
+        void invertirLista();
 
 
         ~Lista();

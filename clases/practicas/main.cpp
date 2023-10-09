@@ -2,65 +2,67 @@
 #include "lista.h"
 using namespace std;
 
-/*int submain(){
-    
-    listaEnteros lEnt;
-    lEnt.ingresarDato(1);
-    lEnt.ingresarDato(13);
-    lEnt.ingresarDato(1000);
-    lEnt.ingresarDato(195);
-    lEnt.ingresarDato(18);
-    lEnt.ingresarDato(17);
-    lEnt.ingresarDato(88);
-    
+int ingreso(){
+    int respuesta;
+    cout << "Opciones:" << '\n';
+    cout << "Seleccione '1' para ingresar un numero al final" << '\n';
+    cout << "Seleccione '2' para ingresar un numero al principio" << '\n';
+    cout << "Seleccione '3' para ingresar un dato en cualquier posicion" << '\n';
+    cout << "Seleccione '4' para eliminar el numero ingresado" << '\n';
+    cout << "Seleccione '5' para saber si un numero esta en la lista" << '\n';
+    cout << "Seleccione '6' para mostrar los elementos de la lista" << '\n';
+    cout << "Seleccione '7' para eliminar el primer numero de la lista" << '\n';
+    cout << "Seleccione '8' para eliminar el ultimo numero de la lista" << '\n';
+    cout << "Seleccione '9' para eliminar un numero en cualquier posicion" << '\n';    
+    cout << "Seleccione '10' para eliminar todas las apariciones de un numero" << '\n';
+    cout << "Seleccione '11' para mostrar el primer numero de la lista" << '\n';
+    cout << "Seleccione '12' para mostrar el ultimo numero de la lista" << '\n';
+    cout << "Seleccione '13' para mostrar el numero en la posicion deseada" << '\n';
+    cout << "Seleccione '0' para cerrar el programa" << '\n';
+    cout << endl;
+    if(cin >> respuesta){
+        return respuesta;
+    }
+    else{
+        cout << "Error! ingreso no valido" << endl;
+        return 0;
+    }
+}
 
-    cout << "SE RECORRE LA LISTA INICIAL" << endl;
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
+int getNumero(){
+    int numero;
+    cout << "Ingrese el numero/posicion: " <<'\n';
+    if(cin >> numero){
+        return numero;
     }
-    //INTENTO DE ELIMINAR UN DATO
-    cout << "\nSE RECORRE LA LISTA Y SE ELIMINA SEGUN LA POSICION: (SE ELIMINA LA POSICION 3)" << endl;
-    lEnt.borrar_X_Pos(3);
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
-    }
-    //
-    cout << "\nSE ELIMINA EL PRIMER DATO QUE COINCIDE: (DATO = 18)" << endl;
-    lEnt.eliminarDato(18);
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
-    }
-    cout <<"\nSE ELIMINA EL PRIMER DATO DE LA LISTA: (PRIMER DATO = 1)" << endl;
-    lEnt.borrarPrimerDato();
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
-    }
-    cout <<"\nSE ELIMINA EL ULTIMO ELEMENTO DE LA LISTA (ULTIMO DATO = 88)" << endl;
-    lEnt.borrarUltimoDato();
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
-    } 
-    cout << "\nSE INGRESAN N CANTIDAD DE DATOS PARA PROBAR LA FUNCION" << endl;
-    lEnt.ingresarDato(77);
-    lEnt.ingresarDato(4);
-    lEnt.ingresarDato(20);
-    lEnt.ingresarDato(25);
-    lEnt.ingresarDato(77);
-    lEnt.ingresarDato(22);
-    lEnt.ingresarDato(77);
-    cout << "\nFUNCION PARA ELIMINAR TODOS LOS ELEMENTOS IGUALES DE LA LISTA" << endl;
-    cout << "\nELEMETOS ANTES DE ELIMINAR" << endl;
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
-    }
-    cout << "\nELEMENTOS DESPUES DE ELIMINAR: (ELEMENTO A ELIMINAR = 77)" << endl;
-    lEnt.eliminarDatoTotal(77);
-    for(int i = 1; i <= lEnt.getLongLista(); i++){
-        cout << "#-" << i << "-valor: " << lEnt.getValorActual(i) << endl;
-    } 
+    cout << "Error! ingreso no valido" << endl;
+    return 0;    
+}
 
-    return 0;
-}*/
+void menu(){
+    Lista lista;
+    cout << "Bienvenido al menu! aca las opciones" << '\n';
+    int operacion = ingreso();
+    do
+    {
+        switch (operacion)
+        {
+        case 1:
+            int numero = getNumero();
+            lista.altaFinal(numero);
+            break;
+        case 2:
+            int numero = getNumero();
+            lista.altaPrincipio(numero);
+
+        default:
+            break;
+        }
+    } 
+    while ((operacion != 0) && (operacion < 14));
+    
+    
+}
 
 int main(){
 

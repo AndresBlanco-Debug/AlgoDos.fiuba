@@ -92,6 +92,7 @@ void Lista::bajaPricipio() {
         //Si hay nodos existentes entonces hay elementos en la lista
         //No hace falta recorrer toda la lista porque eliminamos el primer elemento atado al primer nodo.
         Nodo *pAux = punteroLista;
+        punteroLista = punteroLista -> getSigNodo();
         delete(pAux);
     }
     else{
@@ -241,6 +242,15 @@ void Lista::mostrarXElemento(int posicion){
         }
         cout << (nodoActual -> getInfo());
     }
+}
+//
+void Lista::invertirLista(){
+    Nodo *nodoActual = punteroLista, *nodoAnterior, *proxNodo = (nodoActual -> getSigNodo());
+    if((nodoActual) && (proxNodo)){
+        //Con este if verificamos si hay mas de un elemento en la lista
+        while(1);
+    }
+
 }
 //
 Lista::~Lista(){
