@@ -112,6 +112,11 @@ void menu(){
         case 14:
             lista.bajaEnOrden();
             break;
+        case 15:{
+            int numero = getNumero();
+            lista.bajaRepetida(numero);
+            }
+            break;
         default:
             cout << "Error! ingreso no valido" << endl;
             break;
