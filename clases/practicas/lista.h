@@ -39,6 +39,8 @@ class Lista
         orden, por lo que no se indicará la posición. Tener en cuenta que puede haber
         elementos repetidos.*/
         void bajaEnOrden();
+        //FUNCION QUE ELIMINA TODOS LOS DATOS REPETIDOS DEJADO UNA SOLA APARICION
+        void bajaRepetida(int);
 
 
         ~Lista();

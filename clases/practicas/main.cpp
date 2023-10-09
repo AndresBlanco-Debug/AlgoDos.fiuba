@@ -18,7 +18,8 @@ int ingreso(){
     cout << "Seleccione '11' para mostrar el primer numero de la lista" << '\n';
     cout << "Seleccione '12' para mostrar el ultimo numero de la lista" << '\n';
     cout << "Seleccione '13' para mostrar el numero en la posicion deseada" << '\n';
-    cout << "Seleccione '14' eliminar elememtos en orden (primero al ultimo)" << '\n';
+    cout << "Seleccione '14' para eliminar elememtos en orden (primero al ultimo)" << '\n';
+    cout << "Seleccione '15' para eliminar todas las apariciones repetidas de un numero" << '\n';
     cout << "Seleccione '0' para cerrar el programa" << '\n';
     cout << endl;
     if(cin >> respuesta){

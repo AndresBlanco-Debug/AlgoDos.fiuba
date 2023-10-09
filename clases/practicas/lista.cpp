@@ -279,6 +279,32 @@ void Lista::bajaEnOrden(){
     
 }
 //
+void Lista::bajaRepetida(int elemento){
+    int repetido = 0;
+    Nodo *nodoActual = punteroLista, *nodoAnterior;
+    if (datoEnLista(elemento)){
+        while((nodoActual) && (nodoActual -> getSigNodo())){
+            if((nodoActual -> getInfo()) == elemento){
+                repetido++;
+            }
+            if (repetido >= 2){
+                //Se entra aca si hay mas de un numero igual en la lista
+                //nodoAnterior(valor anterior) -> nodoActual(nodo con el valor repetido) -> nodoSiguiente(proximo valor)
+                nodoAnterior -> setSigNodo(nodoActual->getSigNodo());
+                delete nodoActual;
+                //nodoAnterior(valor anterior) -> nodoSiguiente(nodoActual -> getSigNodo())
+                nodoActual = nodoAnterior -> getSigNodo();        
+                //nodoActual(nodoAnterior) -> nodoSiguiente(nodoActual)        
+            }
+            nodoAnterior = nodoActual;
+            nodoActual = nodoActual -> getSigNodo();
+        }
+    }
+    else{
+        cout << "\nError! el numero no esta en la lista\n" << endl;
+    }
+}
+//
 Lista::~Lista(){
     //EN EL DESTRUCTOR HAY QUE RECORRER EL NODO DE LA LISTA ORIGINAL
     if(punteroLista){
