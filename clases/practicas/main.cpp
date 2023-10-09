@@ -47,91 +47,75 @@ void menu(){
     {
         switch (operacion)
         {
+        case 0:
+            break;
         case 1:
+            {
             int numero = getNumero();
             lista.altaFinal(numero);
+            }
             break;
-        case 2:
+        case 2:{
             int numero = getNumero();
             lista.altaPrincipio(numero);
-
+            }
+            break;
+        case 3:{
+            int numero = getNumero(), posicion = getNumero();
+            lista.altaXPosicion(numero, posicion);
+            }
+            break;
+        case 4:{
+            int numero = getNumero();
+            lista.bajaLista(numero);
+            }
+            break;
+        case 5:{
+            int numero = getNumero();
+            lista.datoEnLista(numero);
+            }
+            break;
+        case 6:
+            lista.emiteLista();
+            break;
+        case 7:
+            lista.bajaPricipio();
+            break;
+        case 8:
+            lista.bajaFinal();
+            break;
+        case 9:{
+            int posicion = getNumero();
+            lista.bajaXPosicion(posicion);
+            }
+            break;
+        case 10:{
+            int numero = getNumero();
+            lista.eliminarDato(numero);
+            }
+            break;
+        case 11:
+            lista.mostrarPrimerElemento();
+            break;
+        case 12:
+            lista.mostrarUltimoElemento();
+            break;
+        case 13:{
+            int posicion = getNumero();
+            lista.mostrarXElemento(posicion);
+            }
+            break;
         default:
+            cout << "Error! ingreso no valido" << endl;
             break;
         }
     } 
-    while ((operacion != 0) && (operacion < 14));
-    
-    
+    while (operacion != 0);
 }
 
 int main(){
 
-    Lista lista;
-    cout << "\nalta al final de 1\n";
-    lista.altaFinal(1);
-    lista.emiteLista();
-
-    cout << "\nalta al final de 2\n";
-    lista.altaFinal(2);
-    lista.emiteLista();
-
-    cout << "\nalta al final de 3\n";
-    lista.altaFinal(3);
-    lista.emiteLista();
-
-    cout << "\nalta al final de 4\n";
-    lista.altaFinal(4);
-    lista.emiteLista();
-
-    cout << "\nalta al principio de 5\n";
-    lista.altaPrincipio(5);
-    lista.emiteLista();
-
-    cout << "\nbaja 4\n";
-    lista.bajaLista(4);
-    lista.emiteLista();
-
-    cout << "\nbaja 1\n";
-    lista.bajaLista(1);
-    lista.emiteLista();
-
-    cout <<"\nElemento en cualquier posicion, numero 8, posicion 2\n";
-    lista.altaXPosicion(8,2);
-    lista.emiteLista();
-
-    cout << "\nBaja en ultima posicion\n";
-    lista.bajaFinal();
-    lista.emiteLista();
-
-    cout <<"\nPrueba de funcion que elimina todas las apariciones de un dato\n";
-    lista.altaFinal(17);
-    lista.altaFinal(5);
-    lista.altaFinal(99);
-    lista.altaFinal(17);
-    lista.altaFinal(17);
-    lista.altaFinal(23);
-    lista.altaFinal(85);
-    lista.altaFinal(17);
-    cout <<"\nEmitimos la lista\n";
-    lista.emiteLista();
-    cout <<"\nUsamos la funcion\n";
-    lista.eliminarDato(17);
-    cout <<"\nEmitimos la lista\n";
-    lista.emiteLista();
-
-    cout << "\nProbamos la funcion para obtener el primer valor de la lista\n";
-    lista.mostrarPrimerElemento();
-
-    cout << "\nProbamos la funcion para obtener el ultimo valor de la lista\n";
-    lista.mostrarUltimoElemento();
-
-    cout << "\nProbamos la funcion para obtener cualquier valor de la lista\n";
-    cout <<"\nHacemos 2 casos de prueba diferentes\n";
-    lista.mostrarXElemento(2);
-    cout <<'\n';
-    lista.mostrarXElemento(3);
-
-    cout << endl;
+    menu();
     
     return 0;
 }
