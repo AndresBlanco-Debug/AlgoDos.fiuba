@@ -286,15 +286,25 @@ void Lista::bajaRepetida(int elemento){
         while((nodoActual) && (nodoActual -> getSigNodo())){
             if((nodoActual -> getInfo()) == elemento){
                 repetido++;
-            }
-            if (repetido >= 2){
-                //Se entra aca si hay mas de un numero igual en la lista
-                //nodoAnterior(valor anterior) -> nodoActual(nodo con el valor repetido) -> nodoSiguiente(proximo valor)
-                nodoAnterior -> setSigNodo(nodoActual->getSigNodo());
-                delete nodoActual;
-                //nodoAnterior(valor anterior) -> nodoSiguiente(nodoActual -> getSigNodo())
-                nodoActual = nodoAnterior -> getSigNodo();        
-                //nodoActual(nodoAnterior) -> nodoSiguiente(nodoActual)        
+                if(repetido >= 2){
+                    if(nodoActual->getSigNodo() != NULL){
+                        //Se entra aca si hay mas de un numero igual en la lista
+                        //nodoAnterior(valor anterior) -> nodoActual(nodo con el valor repetido) -> nodoSiguiente(proximo valor)
+                        nodoAnterior -> setSigNodo(nodoActual->getSigNodo());
+                        delete nodoActual;
+                        //nodoAnterior(valor anterior) -> nodoSiguiente(nodoActual -> getSigNodo())
+                        nodoActual = nodoAnterior;        
+                        //nodoActual(nodoAnterior) -> nodoSiguiente(nodoActual)  
+                    }
+                    else{
+                        //entra aca si valor esta en la ultima posicion
+                        nodoAnterior -> setSigNodo(0);
+                        //nodoAnterior -> nodoActual(valor repetido)
+                        delete nodoActual;
+                        nodoActual = nodoAnterior -> getSigNodo();
+
+                    }
+                }   
             }
             nodoAnterior = nodoActual;
             nodoActual = nodoActual -> getSigNodo();
@@ -302,6 +312,15 @@ void Lista::bajaRepetida(int elemento){
     }
     else{
         cout << "\nError! el numero no esta en la lista\n" << endl;
+    }
+}
+//
+bool Lista::subLista(Lista subLista){
+    Nodo *nodoFirstList = this -> punteroLista;
+    Nodo *nodoSecondList = subLista.punteroLista;
+    //Una vez definimos los nodos podemos pesar como resolver el problema
+    if((nodoFirstList) && (nodoSecondList)){
+        
     }
 }
 //

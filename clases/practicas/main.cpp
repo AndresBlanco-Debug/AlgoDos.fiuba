@@ -78,6 +78,7 @@ void menu(){
             }
             break;
         case 6:{
+            cout << '\n';
             lista.emiteLista();
             cout << '\n' << endl;
             }

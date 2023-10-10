@@ -41,6 +41,9 @@ class Lista
         void bajaEnOrden();
         //FUNCION QUE ELIMINA TODOS LOS DATOS REPETIDOS DEJADO UNA SOLA APARICION
         void bajaRepetida(int);
+        /*Recibe una lista por parámetro e indica si ésta está incluida o no (devuelve
+        true o false).*/
+        bool subLista(Lista subLista);
 
 
         ~Lista();
